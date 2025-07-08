@@ -4,11 +4,38 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form [formGroup]="form" (ngSubmit)="register()">
-    <ion-input formControlName="name" placeholder="Name"></ion-input>
-    <ion-input formControlName="email" placeholder="Email" type="email"></ion-input>
-    <ion-input formControlName="password" placeholder="Password" type="password"></ion-input>
-    <ion-button expand="full" type="submit">Save</ion-button>
-  </form>
+<ion-content class="login-container">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Register</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="form" (ngSubmit)="register()">
+        <ion-item>
+          <ion-input
+            formControlName="name"
+            label="Name"
+            labelPlacement="floating"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            formControlName="email"
+            label="Email"
+            labelPlacement="floating"
+            type="email"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            formControlName="password"
+            label="Password"
+            labelPlacement="floating"
+            type="password"
+          ></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit">Save</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
