@@ -12,3 +12,13 @@ ion-card {
   max-width: 380px;
 }
 
+ion-input.invalid {
+  --highlight-color-focused: var(--ion-color-danger);
+  --highlight-color: var(--ion-color-danger);
+}
+
+ion-input.valid {
+  --highlight-color-focused: var(--ion-color-success);
+  --highlight-color: var(--ion-color-success);
+}
+

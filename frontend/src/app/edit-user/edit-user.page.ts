@@ -16,6 +16,7 @@ import {
   IonCardContent,
 } from '@ionic/angular/standalone';
 import { UserService } from '../services/user.service';
+import { UiService } from '../services/ui.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -50,7 +51,8 @@ export class EditUserPage implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private ui: UiService
   ) {}
 
   ngOnInit() {
@@ -62,11 +64,16 @@ export class EditUserPage implements OnInit {
 
   async save() {
     if (this.form.invalid) return;
-    await this.userService.update(
-      this.id,
-      this.form.value.name!,
-      this.form.value.email!
-    );
-    this.router.navigateByUrl('/users');
+    try {
+      await this.userService.update(
+        this.id,
+        this.form.value.name!,
+        this.form.value.email!
+      );
+      this.ui.toast('User updated', 'success');
+      this.router.navigateByUrl('/users');
+    } catch (err) {
+      this.ui.toast('Update failed', 'danger');
+    }
   }
 }

@@ -32,6 +32,8 @@
             label="Password"
             labelPlacement="floating"
             type="password"
+            [class.valid]="form.controls.password.valid && form.controls.password.touched"
+            [class.invalid]="form.controls.password.invalid && form.controls.password.touched"
           ></ion-input>
         </ion-item>
         <ion-button expand="block" type="submit">Save</ion-button>
