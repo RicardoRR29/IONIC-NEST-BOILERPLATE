@@ -16,6 +16,7 @@ import {
   IonCardTitle,
 } from '@ionic/angular/standalone';
 import { AuthService } from '../services/auth.service';
+import { UiService } from '../services/ui.service';
 
 @Component({
   selector: 'app-register',
@@ -42,22 +43,31 @@ export class RegisterPage {
   form = this.fb.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: [
+      '',
+      [Validators.required, Validators.pattern(/^(?=.*[^A-Za-z0-9]).{8,}$/)],
+    ],
   });
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private ui: UiService
   ) {}
 
   async register() {
     if (this.form.invalid) return;
-    await this.auth.register(
-      this.form.value.name!,
-      this.form.value.email!,
-      this.form.value.password!
-    );
-    this.router.navigateByUrl('/login');
+    try {
+      await this.auth.register(
+        this.form.value.name!,
+        this.form.value.email!,
+        this.form.value.password!
+      );
+      this.ui.toast('User created', 'success');
+      this.router.navigateByUrl('/login');
+    } catch (err) {
+      this.ui.toast('Registration failed', 'danger');
+    }
   }
 }

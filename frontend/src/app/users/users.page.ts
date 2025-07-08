@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { IonContent, IonHeader, IonToolbar, IonTitle, IonList, IonItem, IonLabel, IonButton, IonButtons } from '@ionic/angular/standalone';
 import { UserService, User } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
+import { UiService } from '../services/ui.service';
 
 @Component({
   selector: 'app-users',
@@ -15,7 +16,12 @@ import { AuthService } from '../services/auth.service';
 export class UsersPage implements OnInit {
   users: User[] = [];
 
-  constructor(private userService: UserService, private auth: AuthService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private auth: AuthService,
+    private router: Router,
+    private ui: UiService
+  ) {}
 
   ngOnInit() {
     this.load();
@@ -34,12 +40,20 @@ export class UsersPage implements OnInit {
   }
 
   async deleteUser(user: User) {
-    await this.userService.delete(user.id);
-    this.load();
+    const ok = await this.ui.confirm('Delete user?');
+    if (!ok) return;
+    try {
+      await this.userService.delete(user.id);
+      this.ui.toast('User deleted', 'success');
+      this.load();
+    } catch (err) {
+      this.ui.toast('Delete failed', 'danger');
+    }
   }
 
   logout() {
     this.auth.logout();
     this.router.navigateByUrl('/login');
+    this.ui.toast('Logged out', 'success');
   }
 }
