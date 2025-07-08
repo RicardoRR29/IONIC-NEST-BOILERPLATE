@@ -1,22 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonInput,
-  IonButton,
-  IonItem,
-  IonCardContent,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-} from '@ionic/angular/standalone';
-import { AuthService } from '../services/auth.service';
-import { UiService } from '../services/ui.service';
+import { IonContent, IonHeader, IonToolbar, IonTitle } from '@ionic/angular/standalone';
+import { AddUserModalComponent } from '../add-user/add-user-modal.component';
 
 @Component({
   selector: 'app-register',
@@ -24,50 +10,24 @@ import { UiService } from '../services/ui.service';
   styleUrls: ['./register.page.scss'],
   standalone: true,
   imports: [
-    IonItem,
-    IonCardContent,
     CommonModule,
-    ReactiveFormsModule,
     IonContent,
     IonHeader,
     IonToolbar,
     IonTitle,
-    IonInput,
-    IonButton,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
+    AddUserModalComponent,
   ],
 })
-export class RegisterPage {
-  form = this.fb.group({
-    name: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    password: [
-      '',
-      [Validators.required, Validators.pattern(/^(?=.*[^A-Za-z0-9]).{8,}$/)],
-    ],
-  });
+export class RegisterPage implements AfterViewInit {
+  @ViewChild(AddUserModalComponent) modal!: AddUserModalComponent;
 
-  constructor(
-    private fb: FormBuilder,
-    private auth: AuthService,
-    private router: Router,
-    private ui: UiService
-  ) {}
+  constructor(private router: Router) {}
 
-  async register() {
-    if (this.form.invalid) return;
-    try {
-      await this.auth.register(
-        this.form.value.name!,
-        this.form.value.email!,
-        this.form.value.password!
-      );
-      this.ui.toast('User created', 'success');
-      this.router.navigateByUrl('/login');
-    } catch (err) {
-      this.ui.toast('Registration failed', 'danger');
-    }
+  ngAfterViewInit() {
+    this.modal.open();
+  }
+
+  handleCreated() {
+    this.router.navigateByUrl('/login');
   }
 }
