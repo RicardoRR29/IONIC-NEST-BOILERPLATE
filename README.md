@@ -14,3 +14,9 @@ This repository contains a basic NestJS backend with authentication, a simple Io
 - User registration and login with JWT authentication.
 - Passwords hashed with bcrypt.
 - Example Docker setup.
+
+## Postman Collection
+
+Import `postman_collection.json` into Postman to test all API endpoints.
+The collection uses the `base_url` variable (`http://localhost:3000` by default)
+and saves the JWT token returned from the login request for authenticated calls.
