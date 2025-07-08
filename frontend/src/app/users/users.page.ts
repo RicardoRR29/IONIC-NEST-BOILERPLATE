@@ -45,7 +45,11 @@ export class UsersPage implements OnInit {
     try {
       await this.userService.delete(user.id);
       this.ui.toast('User deleted', 'success');
-      this.load();
+      if (user.id === this.auth.userId) {
+        this.logout();
+      } else {
+        this.load();
+      }
     } catch (err) {
       this.ui.toast('Delete failed', 'danger');
     }

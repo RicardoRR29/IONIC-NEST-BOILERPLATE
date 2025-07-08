@@ -34,6 +34,17 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  get userId(): number | null {
+    const token = this.token;
+    if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.sub ?? null;
+    } catch {
+      return null;
+    }
+  }
+
   isLoggedIn(): boolean {
     return !!this.token;
   }
