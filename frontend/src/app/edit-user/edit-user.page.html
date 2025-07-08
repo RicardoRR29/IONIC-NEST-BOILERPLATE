@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit User</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <ion-input formControlName="name" placeholder="Name"></ion-input>
+    <ion-input formControlName="email" placeholder="Email" type="email"></ion-input>
+    <ion-button expand="full" type="submit">Save</ion-button>
+  </form>
+</ion-content>
