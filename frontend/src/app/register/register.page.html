@@ -4,40 +4,6 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="login-container">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Register</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <form [formGroup]="form" (ngSubmit)="register()">
-        <ion-item>
-          <ion-input
-            formControlName="name"
-            label="Name"
-            labelPlacement="floating"
-          ></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input
-            formControlName="email"
-            label="Email"
-            labelPlacement="floating"
-            type="email"
-          ></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input
-            formControlName="password"
-            label="Password"
-            labelPlacement="floating"
-            type="password"
-            [class.valid]="form.controls.password.valid && form.controls.password.touched"
-            [class.invalid]="form.controls.password.invalid && form.controls.password.touched"
-          ></ion-input>
-        </ion-item>
-        <ion-button expand="block" type="submit">Save</ion-button>
-      </form>
-    </ion-card-content>
-  </ion-card>
+<ion-content>
+  <app-add-user-modal #modal (userCreated)="handleCreated()"></app-add-user-modal>
 </ion-content>

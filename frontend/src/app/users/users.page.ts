@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonHeader, IonToolbar, IonTitle, IonList, IonItem, IonLabel, IonButton, IonButtons } from '@ionic/angular/standalone';
+import { AddUserModalComponent } from '../add-user/add-user-modal.component';
 import { UserService, User } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { UiService } from '../services/ui.service';
@@ -11,10 +12,23 @@ import { UiService } from '../services/ui.service';
   templateUrl: './users.page.html',
   styleUrls: ['./users.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonContent, IonHeader, IonToolbar, IonTitle, IonList, IonItem, IonLabel, IonButton, IonButtons],
+  imports: [
+    CommonModule,
+    IonContent,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonButton,
+    IonButtons,
+    AddUserModalComponent,
+  ],
 })
 export class UsersPage implements OnInit {
   users: User[] = [];
+  @ViewChild(AddUserModalComponent) addModal!: AddUserModalComponent;
 
   constructor(
     private userService: UserService,
@@ -36,7 +50,7 @@ export class UsersPage implements OnInit {
   }
 
   addUser() {
-    this.router.navigateByUrl('/register');
+    this.addModal.open();
   }
 
   editUser(user: User) {
