@@ -10,6 +10,10 @@ import {
   IonInput,
   IonButton,
   IonItem,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
 } from '@ionic/angular/standalone';
 import { UserService } from '../services/user.service';
 
@@ -28,6 +32,10 @@ import { UserService } from '../services/user.service';
     IonTitle,
     IonInput,
     IonButton,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
   ],
 })
 export class EditUserPage implements OnInit {

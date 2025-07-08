@@ -11,6 +11,9 @@ import {
   IonButton,
   IonItem,
   IonCardContent,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
 } from '@ionic/angular/standalone';
 import { AuthService } from '../services/auth.service';
 
@@ -30,6 +33,9 @@ import { AuthService } from '../services/auth.service';
     IonTitle,
     IonInput,
     IonButton,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
   ],
 })
 export class RegisterPage {

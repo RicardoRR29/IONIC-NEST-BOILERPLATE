@@ -10,6 +10,10 @@ import {
   IonInput,
   IonButton,
   IonItem,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
 } from '@ionic/angular/standalone';
 import { AuthService } from '../services/auth.service';
 
@@ -28,6 +32,10 @@ import { AuthService } from '../services/auth.service';
     IonTitle,
     IonInput,
     IonButton,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
   ],
 })
 export class LoginPage {
