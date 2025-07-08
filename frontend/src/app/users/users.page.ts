@@ -27,6 +27,10 @@ export class UsersPage implements OnInit {
     this.load();
   }
 
+  ionViewWillEnter() {
+    this.load();
+  }
+
   async load() {
     this.users = await this.userService.findAll();
   }
