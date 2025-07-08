@@ -1,52 +1,53 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
-
-/* Core CSS required for Ionic components to work properly */
+/* src/global.scss */
+/* Core & Basic Ionic CSS */
 @import "@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
-
-/* Optional CSS utils that can be commented out */
+/* Optional Utilities */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+/* Dark Mode (system preference) */
 
 :root {
-  --ion-background-color: #f7f8fa;
-  --ion-text-color: #1e1e1e;
-  --ion-color-primary: #1e88e5;
-  --ion-color-primary-rgb: 30, 136, 229;
+  /* Font & Base */
+  --ion-font-family: "Inter", sans-serif;
+  --ion-font-size-xl: 2rem;
+  --ion-font-size-lg: 1.25rem;
+  --ion-font-size-md: 1rem;
+  --ion-font-size-sm: 0.875rem;
+
+  /* Background & Text */
+  --ion-background-color: #f4f7fa;
+  --ion-text-color: #2c3e50;
+
+  /* Primary (dark blue) */
+  --ion-color-primary: #2c3e50;
+  --ion-color-primary-shade: #1b2a3a;
+  --ion-color-primary-tint: #3a5068;
   --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #1975d2;
-  --ion-color-primary-tint: #3795e9;
+
+  /* Secondary (medium gray) */
+  --ion-color-secondary: #95a5a6;
+  --ion-color-secondary-shade: #748589;
+  --ion-color-secondary-tint: #bac6c8;
+  --ion-color-secondary-contrast: #ffffff;
+
+  /* Accents & Neutrals */
+  --ion-color-light: #ffffff;
+  --ion-color-medium: #d1d5da;
+  --ion-color-dark: #2c3e50;
+
+  /* Cards & Shadows */
+  --ion-card-border-radius: 12px;
+  --ion-card-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--ion-font-family);
+  color: var(--ion-text-color);
 }

@@ -1,3 +1,4 @@
+<!-- src/app/login/login.page.html -->
 <ion-header>
   <ion-toolbar>
     <ion-title>Login</ion-title>
@@ -5,13 +6,14 @@
 </ion-header>
 
 <ion-content class="login-container">
-  <ion-card>
+  <ion-card class="auth-card">
     <ion-card-header>
       <ion-card-title>Login</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <form [formGroup]="form" (ngSubmit)="login()">
-        <ion-item>
+        <ion-item lines="full">
+          <ion-icon slot="start" name="mail-outline"></ion-icon>
           <ion-input
             formControlName="email"
             label="Email"
@@ -19,19 +21,39 @@
             type="email"
           ></ion-input>
         </ion-item>
-        <ion-item>
+
+        <ion-item lines="full">
+          <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
           <ion-input
             formControlName="password"
             label="Password"
             labelPlacement="floating"
             type="password"
-            [class.valid]="form.controls.password.valid && form.controls.password.touched"
-            [class.invalid]="form.controls.password.invalid && form.controls.password.touched"
+            [class.valid]="form.controls['password'].valid && form.controls['password'].touched"
+            [class.invalid]="form.controls['password'].invalid && form.controls['password'].touched"
           ></ion-input>
         </ion-item>
-        <ion-button expand="block" type="submit">Login</ion-button>
+
+        <ion-button
+          expand="block"
+          fill="solid"
+          color="primary"
+          class="auth-button"
+          type="submit"
+        >
+          Login
+        </ion-button>
       </form>
-      <ion-button expand="block" fill="clear" (click)="goToRegister()">Register</ion-button>
+
+      <ion-button
+        expand="block"
+        fill="clear"
+        color="secondary"
+        class="auth-button"
+        (click)="goToRegister()"
+      >
+        Register
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

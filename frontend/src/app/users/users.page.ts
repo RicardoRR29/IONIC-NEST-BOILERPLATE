@@ -1,7 +1,27 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonHeader, IonToolbar, IonTitle, IonList, IonItem, IonLabel, IonButton, IonButtons } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonButton,
+  IonSearchbar,
+  IonButtons,
+  IonIcon,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardContent,
+} from '@ionic/angular/standalone';
 import { AddUserModalComponent } from '../add-user/add-user-modal.component';
 import { UserService, User } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
@@ -13,6 +33,16 @@ import { UiService } from '../services/ui.service';
   styleUrls: ['./users.page.scss'],
   standalone: true,
   imports: [
+    IonIcon,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonCard,
+    IonSearchbar,
+    IonCardContent,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonCardHeader,
     CommonModule,
     IonContent,
     IonHeader,

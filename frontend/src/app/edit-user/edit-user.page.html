@@ -5,20 +5,21 @@
 </ion-header>
 
 <ion-content class="login-container">
-  <ion-card>
+  <ion-card class="auth-card">
     <ion-card-header>
       <ion-card-title>Edit User</ion-card-title>
     </ion-card-header>
+
     <ion-card-content>
       <form [formGroup]="form" (ngSubmit)="save()">
-        <ion-item>
+        <ion-item lines="full">
           <ion-input
             formControlName="name"
             label="Name"
             labelPlacement="floating"
           ></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item lines="full">
           <ion-input
             formControlName="email"
             label="Email"
@@ -26,7 +27,16 @@
             type="email"
           ></ion-input>
         </ion-item>
-        <ion-button expand="block" type="submit">Save</ion-button>
+
+        <ion-button
+          expand="block"
+          fill="solid"
+          color="primary"
+          class="auth-button"
+          type="submit"
+        >
+          Save
+        </ion-button>
       </form>
     </ion-card-content>
   </ion-card>

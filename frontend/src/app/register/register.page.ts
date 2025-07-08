@@ -1,33 +1,72 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+// src/app/register/register.page.ts
+import { Component } from '@angular/core';
+import {
+  IonicModule,
+  NavController,
+  ToastController,
+  LoadingController,
+} from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonHeader, IonToolbar, IonTitle } from '@ionic/angular/standalone';
-import { AddUserModalComponent } from '../add-user/add-user-modal.component';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
+  standalone: true,
+  imports: [IonicModule, CommonModule, ReactiveFormsModule],
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    AddUserModalComponent,
-  ],
 })
-export class RegisterPage implements AfterViewInit {
-  @ViewChild(AddUserModalComponent) modal!: AddUserModalComponent;
+export class RegisterPage {
+  form: FormGroup;
 
-  constructor(private router: Router) {}
-
-  ngAfterViewInit() {
-    this.modal.open();
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private navCtrl: NavController,
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController
+  ) {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
   }
 
-  handleCreated() {
-    this.router.navigateByUrl('/login');
+  async register() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const loading = await this.loadingCtrl.create({ message: 'Registering…' });
+    await loading.present();
+
+    // ✅ Destructure to pass individual args
+    const { name, email, password } = this.form.value;
+
+    try {
+      await this.authService.register(name, email, password);
+      await loading.dismiss();
+      this.navCtrl.navigateRoot('/users');
+    } catch (err: any) {
+      await loading.dismiss();
+      const toast = await this.toastCtrl.create({
+        message: err?.message || 'Registration failed',
+        duration: 3000,
+        color: 'danger',
+      });
+      await toast.present();
+    }
+  }
+
+  goToLogin() {
+    this.navCtrl.navigateBack('/login');
   }
 }

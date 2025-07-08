@@ -1,75 +1,69 @@
+// src/app/login/login.page.ts
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import {
-  IonContent,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonInput,
-  IonButton,
-  IonItem,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-} from '@ionic/angular/standalone';
+  IonicModule,
+  NavController,
+  ToastController,
+  LoadingController,
+} from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { UiService } from '../services/ui.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [IonicModule, CommonModule, ReactiveFormsModule],
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone: true,
-  imports: [
-    IonItem,
-    CommonModule,
-    ReactiveFormsModule,
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonInput,
-    IonButton,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardContent,
-  ],
 })
 export class LoginPage {
-  form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: [
-      '',
-      [Validators.required, Validators.pattern(/^(?=.*[^A-Za-z0-9]).{8,}$/)],
-    ],
-  });
+  form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private auth: AuthService,
-    private router: Router,
-    private ui: UiService
-  ) {}
+    private authService: AuthService,
+    private navCtrl: NavController,
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController
+  ) {
+    this.form = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 
   async login() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const loading = await this.loadingCtrl.create({ message: 'Logging in…' });
+    await loading.present();
+
+    const { email, password } = this.form.value;
     try {
-      await this.auth.login(
-        this.form.value.email!,
-        this.form.value.password!
-      );
-      this.ui.toast('Login successful', 'success');
-      this.router.navigateByUrl('/users');
-    } catch (err) {
-      this.ui.toast('Login failed', 'danger');
+      await this.authService.login(email, password);
+      await loading.dismiss();
+      this.navCtrl.navigateRoot('/users');
+    } catch (err: any) {
+      await loading.dismiss();
+      const toast = await this.toastCtrl.create({
+        message: err?.message || 'Login failed',
+        duration: 3000,
+        color: 'danger',
+      });
+      await toast.present();
     }
   }
 
   goToRegister() {
-    this.router.navigateByUrl('/register');
+    this.navCtrl.navigateForward('/register');
   }
 }

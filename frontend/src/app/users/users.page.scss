@@ -1,14 +1,71 @@
-ion-item {
-  --padding-start: 0;
-  --inner-padding-end: 0;
+/* src/app/users/users.page.scss */
+:host {
+  display: block;
+  background: var(--ion-background-color);
 }
 
-ion-label h2 {
-  font-size: 16px;
-  margin-bottom: 2px;
+.search-card {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: var(--ion-color-light);
+  border-radius: var(--ion-card-border-radius);
+  box-shadow: var(--ion-card-box-shadow);
+
+  ion-searchbar {
+    --background: #ffffff;
+    --border-radius: 0.5rem;
+    --placeholder-color: var(--ion-color-medium);
+  }
 }
 
-ion-label p {
-  color: var(--ion-color-medium);
-  font-size: 14px;
+.table-container {
+  background: var(--ion-color-light);
+  border-radius: var(--ion-card-border-radius);
+  box-shadow: var(--ion-card-box-shadow);
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--ion-font-family);
+
+  th,
+  td {
+    padding: 0.75rem 1rem;
+    font-size: var(--ion-font-size-md);
+    color: var(--ion-text-color);
+  }
+
+  thead th {
+    background: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
+    font-weight: 600;
+    border-bottom: 2px solid var(--ion-color-secondary);
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--ion-color-secondary-shade);
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: var(--ion-color-secondary-tint);
+    }
+  }
+
+  .actions-header {
+    text-align: center;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+
+    ion-button {
+      font-size: var(--ion-font-size-sm);
+      --padding-start: 0.5rem;
+      --padding-end: 0.5rem;
+    }
+  }
 }

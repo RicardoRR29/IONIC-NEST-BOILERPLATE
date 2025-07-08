@@ -1,56 +1,39 @@
+// src/app/add-user/add-user-modal.component.ts
 import { Component, EventEmitter, Output } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import {
-  IonButton,
-  IonInput,
-  IonItem,
-  IonModal,
-  IonButtons,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-} from '@ionic/angular/standalone';
-import { UserService } from '../services/user.service';
-import { UiService } from '../services/ui.service';
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+
+export interface User {
+  name: string;
+  email: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-add-user-modal',
+  standalone: true,
+  imports: [IonicModule, CommonModule, ReactiveFormsModule],
   templateUrl: './add-user-modal.component.html',
   styleUrls: ['./add-user-modal.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    IonButton,
-    IonInput,
-    IonItem,
-    IonModal,
-    IonButtons,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-  ],
 })
 export class AddUserModalComponent {
+  @Output() userCreated = new EventEmitter<User>();
   isOpen = false;
-  @Output() userCreated = new EventEmitter<void>();
-  form = this.fb.group({
-    name: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    password: [
-      '',
-      [Validators.required, Validators.pattern(/^(?=.*[^A-Za-z0-9]).{8,}$/)],
-    ],
-  });
+  form: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private userService: UserService,
-    private ui: UiService
-  ) {}
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 
   open() {
     this.isOpen = true;
@@ -61,19 +44,12 @@ export class AddUserModalComponent {
     this.form.reset();
   }
 
-  async save() {
-    if (this.form.invalid) return;
-    try {
-      await this.userService.create(
-        this.form.value.name!,
-        this.form.value.email!,
-        this.form.value.password!
-      );
-      this.ui.toast('User created', 'success');
-      this.userCreated.emit();
-      this.close();
-    } catch (err) {
-      this.ui.toast('Create failed', 'danger');
+  save() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
+    this.userCreated.emit(this.form.value);
+    this.close();
   }
 }

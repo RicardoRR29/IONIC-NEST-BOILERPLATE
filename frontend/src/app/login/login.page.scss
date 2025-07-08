@@ -1,24 +1,37 @@
+:host {
+  display: block;
+  background: var(--ion-background-color);
+}
 
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px;
+  padding: 1rem;
   height: 100%;
 }
 
-ion-card {
+.auth-card {
   width: 100%;
   max-width: 380px;
+  border-radius: var(--ion-card-border-radius);
+  box-shadow: var(--ion-card-box-shadow);
+}
+
+ion-item {
+  margin-bottom: 0.75rem;
+}
+
+.auth-button {
+  margin-top: 1rem;
+}
+
+ion-input.valid {
+  --highlight-color-focused: var(--ion-color-primary);
+  --highlight-color: var(--ion-color-primary);
 }
 
 ion-input.invalid {
   --highlight-color-focused: var(--ion-color-danger);
   --highlight-color: var(--ion-color-danger);
 }
-
-ion-input.valid {
-  --highlight-color-focused: var(--ion-color-success);
-  --highlight-color: var(--ion-color-success);
-}
-

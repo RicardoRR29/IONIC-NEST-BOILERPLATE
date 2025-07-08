@@ -1,0 +1,417 @@
+------------------------
+frontend/src/app/users/users.page.html
+------------------------
+<!-- src/app/users/users.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Users</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Logout
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Search & Add -->
+  <ion-grid>
+    <ion-row class="ion-justify-content-end">
+      <ion-col size="3">
+        <ion-button expand="block" color="primary" (click)="addUser()">
+          <ion-icon slot="start" name="add-outline"></ion-icon>
+          Add User
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Users Table -->
+  <div class="table-container">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th class="actions-header">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td class="actions">
+            <ion-button
+              fill="clear"
+              shape="round"
+              color="primary"
+              (click)="editUser(user)"
+            >
+              <ion-icon slot="start" name="create-outline"></ion-icon>
+              Edit
+            </ion-button>
+            <ion-button
+              fill="clear"
+              shape="round"
+              color="danger"
+              (click)="deleteUser(user)"
+            >
+              <ion-icon slot="start" name="trash-outline"></ion-icon>
+              Delete
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-add-user-modal #addModal></app-add-user-modal>
+</ion-content>
+
+
+------------------------
+frontend/src/app/users/users.page.scss
+------------------------
+/* src/app/users/users.page.scss */
+:host {
+  display: block;
+  background: var(--ion-background-color);
+}
+
+.search-card {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: var(--ion-color-light);
+  border-radius: var(--ion-card-border-radius);
+  box-shadow: var(--ion-card-box-shadow);
+
+  ion-searchbar {
+    --background: #ffffff;
+    --border-radius: 0.5rem;
+    --placeholder-color: var(--ion-color-medium);
+  }
+}
+
+.table-container {
+  background: var(--ion-color-light);
+  border-radius: var(--ion-card-border-radius);
+  box-shadow: var(--ion-card-box-shadow);
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--ion-font-family);
+
+  th,
+  td {
+    padding: 0.75rem 1rem;
+    font-size: var(--ion-font-size-md);
+    color: var(--ion-text-color);
+  }
+
+  thead th {
+    background: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
+    font-weight: 600;
+    border-bottom: 2px solid var(--ion-color-secondary);
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--ion-color-secondary-shade);
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: var(--ion-color-secondary-tint);
+    }
+  }
+
+  .actions-header {
+    text-align: center;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+
+    ion-button {
+      font-size: var(--ion-font-size-sm);
+      --padding-start: 0.5rem;
+      --padding-end: 0.5rem;
+    }
+  }
+}
+
+
+------------------------
+frontend/src/app/home/home.page.scss
+------------------------
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.hero p {
+  color: var(--ion-color-medium);
+}
+
+------------------------
+frontend/src/app/home/home.page.html
+------------------------
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="home">
+  <div class="hero">
+    <h1>Welcome</h1>
+    <p>Manage your users easily.</p>
+  </div>
+</ion-content>
+
+
+------------------------
+frontend/src/app/add-user/add-user-modal.component.html
+------------------------
+<ion-modal [isOpen]="isOpen" (didDismiss)="close()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Add User</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="close()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="login-container">
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <ion-item>
+          <ion-input
+            formControlName="name"
+            label="Name"
+            labelPlacement="floating"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            formControlName="email"
+            label="Email"
+            labelPlacement="floating"
+            type="email"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            formControlName="password"
+            label="Password"
+            labelPlacement="floating"
+            type="password"
+          ></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit">Save</ion-button>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+------------------------
+frontend/src/app/add-user/add-user-modal.component.scss
+------------------------
+/* Empty styling */
+
+
+------------------------
+frontend/src/app/login/login.page.html
+------------------------
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-container">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Login</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="form" (ngSubmit)="login()">
+        <ion-item>
+          <ion-input
+            formControlName="email"
+            label="Email"
+            labelPlacement="floating"
+            type="email"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            formControlName="password"
+            label="Password"
+            labelPlacement="floating"
+            type="password"
+            [class.valid]="form.controls.password.valid && form.controls.password.touched"
+            [class.invalid]="form.controls.password.invalid && form.controls.password.touched"
+          ></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit">Login</ion-button>
+      </form>
+      <ion-button expand="block" fill="clear" (click)="goToRegister()">Register</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+
+------------------------
+frontend/src/app/login/login.page.scss
+------------------------
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  height: 100%;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 380px;
+}
+
+ion-input.invalid {
+  --highlight-color-focused: var(--ion-color-danger);
+  --highlight-color: var(--ion-color-danger);
+}
+
+ion-input.valid {
+  --highlight-color-focused: var(--ion-color-success);
+  --highlight-color: var(--ion-color-success);
+}
+
+
+
+------------------------
+frontend/src/app/app.component.scss
+------------------------
+
+
+------------------------
+frontend/src/app/edit-user/edit-user.page.scss
+------------------------
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  height: 100%;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 380px;
+}
+
+
+------------------------
+frontend/src/app/edit-user/edit-user.page.html
+------------------------
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit User</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-container">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Edit User</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <ion-item>
+          <ion-input
+            formControlName="name"
+            label="Name"
+            labelPlacement="floating"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            formControlName="email"
+            label="Email"
+            labelPlacement="floating"
+            type="email"
+          ></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit">Save</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+
+------------------------
+frontend/src/app/register/register.page.html
+------------------------
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-add-user-modal #modal (userCreated)="handleCreated()"></app-add-user-modal>
+</ion-content>
+
+
+------------------------
+frontend/src/app/register/register.page.scss
+------------------------
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  height: 100%;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 380px;
+}
+
+ion-input.invalid {
+  --highlight-color-focused: var(--ion-color-danger);
+  --highlight-color: var(--ion-color-danger);
+}
+
+ion-input.valid {
+  --highlight-color-focused: var(--ion-color-success);
+  --highlight-color: var(--ion-color-success);
+}
+
+
+
+------------------------
+frontend/src/app/app.component.html
+------------------------
+<ion-app>
+  <ion-router-outlet></ion-router-outlet>
+</ion-app>
+
+
