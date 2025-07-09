@@ -56,8 +56,8 @@ export class AddUserModalComponent {
       this.userCreated.emit(user);
       this.ui.toast('User created', 'success');
       this.close();
-    } catch (err) {
-      this.ui.toast('Create failed', 'danger');
+    } catch {
+      // error handled globally
     }
   }
 }

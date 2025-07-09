@@ -2,7 +2,6 @@
 import { Component } from '@angular/core';
 import {
   NavController,
-  ToastController,
   LoadingController,
 } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,7 +19,6 @@ export class LoginPage {
     private fb: FormBuilder,
     private authService: AuthService,
     private navCtrl: NavController,
-    private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
   ) {
     this.form = this.fb.group({
@@ -43,14 +41,9 @@ export class LoginPage {
       await this.authService.login(email, password);
       await loading.dismiss();
       this.navCtrl.navigateRoot('/users');
-    } catch (err: any) {
+    } catch {
       await loading.dismiss();
-      const toast = await this.toastCtrl.create({
-        message: err?.message || 'Login failed',
-        duration: 3000,
-        color: 'danger',
-      });
-      await toast.present();
+      // handled globally by interceptor
     }
   }
 

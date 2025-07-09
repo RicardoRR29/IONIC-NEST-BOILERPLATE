@@ -94,8 +94,8 @@ export class UsersPage implements OnInit {
       } else {
         this.load();
       }
-    } catch (err) {
-      this.ui.toast('Delete failed', 'danger');
+    } catch {
+      // error handled globally
     }
   }
 

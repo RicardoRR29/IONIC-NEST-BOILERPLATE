@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import {
   IonicModule,
   NavController,
-  ToastController,
   LoadingController,
 } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -29,7 +28,6 @@ export class RegisterPage {
     private fb: FormBuilder,
     private authService: AuthService,
     private navCtrl: NavController,
-    private toastCtrl: ToastController,
     private loadingCtrl: LoadingController
   ) {
     this.form = this.fb.group({
@@ -55,14 +53,9 @@ export class RegisterPage {
       await this.authService.register(name, email, password);
       await loading.dismiss();
       this.navCtrl.navigateRoot('/users');
-    } catch (err: any) {
+    } catch {
       await loading.dismiss();
-      const toast = await this.toastCtrl.create({
-        message: err?.message || 'Registration failed',
-        duration: 3000,
-        color: 'danger',
-      });
-      await toast.present();
+      // handled globally by interceptor
     }
   }
 
