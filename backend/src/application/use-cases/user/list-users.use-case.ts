@@ -4,7 +4,9 @@ import { User } from '../../../domain/entities/user.entity';
 
 @Injectable()
 export class ListUsersUseCase {
-  constructor(@Inject('IUserRepository') private readonly usersRepo: IUserRepository) {}
+  constructor(
+    @Inject('IUserRepository') private readonly usersRepo: IUserRepository,
+  ) {}
 
   execute(): Promise<User[]> {
     return this.usersRepo.findAll();

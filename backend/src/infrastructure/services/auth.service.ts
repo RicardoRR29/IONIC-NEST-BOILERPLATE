@@ -13,7 +13,7 @@ export class AuthService {
 
   async validateUser(email: string, pass: string) {
     const user = await this.usersRepo.findByEmail(email);
-    if (user && await this.crypto.compare(pass, user.password)) {
+    if (user && (await this.crypto.compare(pass, user.password))) {
       const { password, ...result } = user;
       return result;
     }

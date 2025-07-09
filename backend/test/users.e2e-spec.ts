@@ -70,7 +70,9 @@ describe('Users API (e2e)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({ name: 'Updated' })
       .expect(200);
-    expect(res.body).toEqual(expect.objectContaining({ id: userId, name: 'Updated' }));
+    expect(res.body).toEqual(
+      expect.objectContaining({ id: userId, name: 'Updated' }),
+    );
   });
 
   it('removes a user', async () => {

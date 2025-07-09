@@ -5,7 +5,9 @@ import { User } from '../../../domain/entities/user.entity';
 
 @Injectable()
 export class UpdateUserUseCase {
-  constructor(@Inject('IUserRepository') private readonly usersRepo: IUserRepository) {}
+  constructor(
+    @Inject('IUserRepository') private readonly usersRepo: IUserRepository,
+  ) {}
 
   async execute(id: number, dto: UpdateUserDto): Promise<User> {
     return this.usersRepo.update(id, dto);

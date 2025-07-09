@@ -2,7 +2,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { UserService, User } from '../../services/user.service';
 import { UiService } from '../../../core/services/ui.service';
 
@@ -19,7 +24,7 @@ export class AddUserModalComponent {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private ui: UiService
+    private ui: UiService,
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -46,7 +51,7 @@ export class AddUserModalComponent {
       const user = await this.userService.create(
         this.form.value.name!,
         this.form.value.email!,
-        this.form.value.password!
+        this.form.value.password!,
       );
       this.userCreated.emit(user);
       this.ui.toast('User created', 'success');

@@ -6,7 +6,9 @@ import { IUserRepository } from '../../../domain/repositories/user.repository';
 
 @Injectable()
 export class UserOrmRepository implements IUserRepository {
-  constructor(@InjectRepository(User) private readonly repo: Repository<User>) {}
+  constructor(
+    @InjectRepository(User) private readonly repo: Repository<User>,
+  ) {}
 
   create(user: Partial<User>): Promise<User> {
     const entity = this.repo.create(user);

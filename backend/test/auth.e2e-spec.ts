@@ -42,7 +42,11 @@ describe('Auth API (e2e)', () => {
       .expect(201);
 
     expect(res.body).toEqual(
-      expect.objectContaining({ id: expect.any(Number), name: 'Alice', email: 'alice@example.com' }),
+      expect.objectContaining({
+        id: expect.any(Number),
+        name: 'Alice',
+        email: 'alice@example.com',
+      }),
     );
     expect(res.body.password).toBeUndefined();
   });
@@ -63,7 +67,11 @@ describe('Auth API (e2e)', () => {
   it('returns profile data for a valid token', async () => {
     await request(app.getHttpServer())
       .post('/auth/register')
-      .send({ name: 'Carol', email: 'carol@example.com', password: 'Pass@123' });
+      .send({
+        name: 'Carol',
+        email: 'carol@example.com',
+        password: 'Pass@123',
+      });
 
     const loginRes = await request(app.getHttpServer())
       .post('/auth/login')
@@ -75,6 +83,9 @@ describe('Auth API (e2e)', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect(201);
 
-    expect(profileRes.body).toEqual({ userId: expect.any(Number), email: 'carol@example.com' });
+    expect(profileRes.body).toEqual({
+      userId: expect.any(Number),
+      email: 'carol@example.com',
+    });
   });
 });

@@ -25,13 +25,13 @@ export class UserService {
 
   create(name: string, email: string, password: string): Promise<User> {
     return firstValueFrom(
-      this.http.post<User>(`${this.base}/users`, { name, email, password })
+      this.http.post<User>(`${this.base}/users`, { name, email, password }),
     );
   }
 
   update(id: number, name: string, email: string): Promise<User> {
     return firstValueFrom(
-      this.http.put<User>(`${this.base}/users/${id}`, { name, email })
+      this.http.put<User>(`${this.base}/users/${id}`, { name, email }),
     );
   }
 

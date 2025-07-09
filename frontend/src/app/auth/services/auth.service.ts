@@ -15,14 +15,17 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<void> {
     const res = await firstValueFrom(
-      this.http.post<LoginResponse>(`${this.base}/auth/login`, { email, password })
+      this.http.post<LoginResponse>(`${this.base}/auth/login`, {
+        email,
+        password,
+      }),
     );
     localStorage.setItem('token', res.access_token);
   }
 
   async register(name: string, email: string, password: string): Promise<void> {
     await firstValueFrom(
-      this.http.post(`${this.base}/auth/register`, { name, email, password })
+      this.http.post(`${this.base}/auth/register`, { name, email, password }),
     );
   }
 

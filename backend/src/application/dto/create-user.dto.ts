@@ -8,6 +8,8 @@ export class CreateUserDto {
   email: string;
 
   @MinLength(8)
-  @Matches(/[^A-Za-z0-9]/, { message: 'password must contain at least one special character' })
+  @Matches(/[^A-Za-z0-9]/, {
+    message: 'password must contain at least one special character',
+  })
   password: string;
 }

@@ -4,7 +4,9 @@ import { User } from '../../../domain/entities/user.entity';
 
 @Injectable()
 export class GetUserUseCase {
-  constructor(@Inject('IUserRepository') private readonly usersRepo: IUserRepository) {}
+  constructor(
+    @Inject('IUserRepository') private readonly usersRepo: IUserRepository,
+  ) {}
 
   execute(id: number): Promise<User | null> {
     return this.usersRepo.findOne(id);

@@ -33,7 +33,7 @@ export class UsersPage implements OnInit {
     private userService: UserService,
     private auth: AuthService,
     private router: Router,
-    private ui: UiService
+    private ui: UiService,
   ) {}
 
   ngOnInit() {

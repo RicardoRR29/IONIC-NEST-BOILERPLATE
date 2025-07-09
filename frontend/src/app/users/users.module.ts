@@ -9,6 +9,12 @@ import { EditUserModalComponent } from './components/edit-user-modal/edit-user-m
 
 @NgModule({
   declarations: [UsersPage, AddUserModalComponent, EditUserModalComponent],
-  imports: [CommonModule, IonicModule, FormsModule, ReactiveFormsModule, UsersRoutingModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    FormsModule,
+    ReactiveFormsModule,
+    UsersRoutingModule,
+  ],
 })
 export class UsersModule {}

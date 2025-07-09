@@ -1,6 +1,10 @@
 // src/app/login/login.page.ts
 import { Component } from '@angular/core';
-import { NavController, ToastController, LoadingController } from '@ionic/angular';
+import {
+  NavController,
+  ToastController,
+  LoadingController,
+} from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
@@ -17,7 +21,7 @@ export class LoginPage {
     private authService: AuthService,
     private navCtrl: NavController,
     private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

@@ -3,10 +3,21 @@ import { AlertController, ToastController } from '@ionic/angular';
 
 @Injectable({ providedIn: 'root' })
 export class UiService {
-  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController) {}
+  constructor(
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
+  ) {}
 
-  async toast(message: string, color: 'success' | 'danger' | 'warning' | 'primary' = 'primary') {
-    const toast = await this.toastCtrl.create({ message, duration: 2000, color, position: 'bottom' });
+  async toast(
+    message: string,
+    color: 'success' | 'danger' | 'warning' | 'primary' = 'primary',
+  ) {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 2000,
+      color,
+      position: 'bottom',
+    });
     await toast.present();
   }
 
@@ -16,8 +27,8 @@ export class UiService {
       message,
       buttons: [
         { text: 'Cancel', role: 'cancel' },
-        { text: 'OK', role: 'confirm' }
-      ]
+        { text: 'OK', role: 'confirm' },
+      ],
     });
     await alert.present();
     const { role } = await alert.onDidDismiss();
