@@ -1,12 +1,7 @@
-<ion-modal
-  class="ion-modal"
-  [isOpen]="isOpen"
-  (didDismiss)="close()"
-  cssClass="auto-height-modal"
->
+<ion-modal class="ion-modal" [isOpen]="isOpen" (didDismiss)="close()">
   <ng-template>
     <ion-card-header>
-      <ion-card-title>Add User</ion-card-title>
+      <ion-card-title>Edit User</ion-card-title>
       <ion-buttons slot="end">
         <ion-button (click)="close()" fill="clear">
           <ion-icon name="close-outline"></ion-icon>
@@ -29,14 +24,6 @@
             label="Email"
             labelPlacement="floating"
             type="email"
-          ></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input
-            formControlName="password"
-            label="Password"
-            labelPlacement="floating"
-            type="password"
           ></ion-input>
         </ion-item>
         <ion-button

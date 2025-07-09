@@ -3,10 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import {
-  IonContent,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonInput,
   IonButton,
   IonItem,
@@ -14,6 +10,8 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
+  IonIcon,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { UserService } from '../services/user.service';
 import { UiService } from '../services/ui.service';
@@ -24,19 +22,17 @@ import { UiService } from '../services/ui.service';
   styleUrls: ['./edit-user.page.scss'],
   standalone: true,
   imports: [
-    IonItem,
     CommonModule,
     ReactiveFormsModule,
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonInput,
     IonButton,
+    IonItem,
     IonCard,
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
+    IonButtons,
+    IonIcon,
   ],
 })
 export class EditUserPage implements OnInit {
@@ -75,5 +71,9 @@ export class EditUserPage implements OnInit {
     } catch (err) {
       this.ui.toast('Update failed', 'danger');
     }
+  }
+
+  goBack() {
+    this.router.navigateByUrl('/users');
   }
 }

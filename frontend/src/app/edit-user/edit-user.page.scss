@@ -1,12 +1,10 @@
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-  height: 100%;
+.auth-card {
+  margin: 16px;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
 }
 
-ion-card {
-  width: 100%;
-  max-width: 380px;
+.auth-button {
+  margin-top: 24px;
 }
