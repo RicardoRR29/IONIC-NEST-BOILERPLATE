@@ -1,4 +1,9 @@
-<ion-modal class="ion-modal" [isOpen]="isOpen" (didDismiss)="close()">
+<ion-modal
+  class="ion-modal"
+  [isOpen]="isOpen"
+  (didDismiss)="close()"
+  cssClass="auto-height-modal"
+>
   <ng-template>
     <ion-card-header>
       <ion-card-title>Edit User</ion-card-title>

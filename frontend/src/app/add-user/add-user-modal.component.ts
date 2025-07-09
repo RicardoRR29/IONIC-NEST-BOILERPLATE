@@ -11,7 +11,6 @@ import {
 import { UserService, User } from '../services/user.service';
 import { UiService } from '../services/ui.service';
 
-
 @Component({
   selector: 'app-add-user-modal',
   standalone: true,
@@ -27,7 +26,7 @@ export class AddUserModalComponent {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private ui: UiService,
+    private ui: UiService
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -54,7 +53,7 @@ export class AddUserModalComponent {
       const user = await this.userService.create(
         this.form.value.name!,
         this.form.value.email!,
-        this.form.value.password!,
+        this.form.value.password!
       );
       this.userCreated.emit(user);
       this.ui.toast('User created', 'success');

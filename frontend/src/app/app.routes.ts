@@ -8,17 +8,13 @@ export const routes: Routes = [
   },
   {
     path: 'register',
-    loadComponent: () => import('./register/register.page').then((m) => m.RegisterPage),
+    loadComponent: () =>
+      import('./register/register.page').then((m) => m.RegisterPage),
   },
   {
     path: 'users',
     canActivate: [authGuard],
     loadComponent: () => import('./users/users.page').then((m) => m.UsersPage),
-  },
-  {
-    path: 'users/:id/edit',
-    canActivate: [authGuard],
-    loadComponent: () => import('./edit-user/edit-user.page').then((m) => m.EditUserPage),
   },
   {
     path: '',
