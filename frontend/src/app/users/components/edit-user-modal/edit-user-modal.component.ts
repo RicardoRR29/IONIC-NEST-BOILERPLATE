@@ -57,8 +57,8 @@ export class EditUserModalComponent {
       this.userUpdated.emit(updated);
       this.ui.toast('User updated', 'success');
       this.close();
-    } catch (err) {
-      this.ui.toast('Update failed', 'danger');
+    } catch {
+      // error handled globally
     }
   }
 }
