@@ -8,14 +8,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { UserService } from '../services/user.service';
+import { UserService, User } from '../services/user.service';
 import { UiService } from '../services/ui.service';
 
-export interface User {
-  name: string;
-  email: string;
-  password: string;
-}
 
 @Component({
   selector: 'app-add-user-modal',
