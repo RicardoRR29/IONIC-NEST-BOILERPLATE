@@ -2,19 +2,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { UserService, User } from '../services/user.service';
-import { UiService } from '../services/ui.service';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService, User } from '../../services/user.service';
+import { UiService } from '../../../core/services/ui.service';
 
 @Component({
   selector: 'app-add-user-modal',
-  standalone: true,
-  imports: [IonicModule, CommonModule, ReactiveFormsModule],
   templateUrl: './add-user-modal.component.html',
   styleUrls: ['./add-user-modal.component.scss'],
 })

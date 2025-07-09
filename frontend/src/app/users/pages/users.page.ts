@@ -12,33 +12,17 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-} from '@ionic/angular/standalone';
-import { AddUserModalComponent } from '../add-user/add-user-modal.component';
-import { EditUserModalComponent } from '../edit-user-modal/edit-user-modal.component';
+} from '@ionic/angular';
+import { AddUserModalComponent } from '../components/add-user/add-user-modal.component';
+import { EditUserModalComponent } from '../components/edit-user-modal/edit-user-modal.component';
 import { UserService, User } from '../services/user.service';
-import { AuthService } from '../services/auth.service';
-import { UiService } from '../services/ui.service';
+import { AuthService } from '../../auth/services/auth.service';
+import { UiService } from '../../core/services/ui.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.page.html',
   styleUrls: ['./users.page.scss'],
-  standalone: true,
-  imports: [
-    IonIcon,
-    IonGrid,
-    IonRow,
-    IonCol,
-    CommonModule,
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButton,
-    IonButtons,
-    AddUserModalComponent,
-    EditUserModalComponent,
-  ],
 })
 export class UsersPage implements OnInit {
   users: User[] = [];

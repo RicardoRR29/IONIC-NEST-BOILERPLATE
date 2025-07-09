@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   it('should create the app', async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
-      providers: [provideRouter([])]
+      declarations: [AppComponent],
+      imports: [RouterTestingModule]
     }).compileComponents();
     
     const fixture = TestBed.createComponent(AppComponent);
