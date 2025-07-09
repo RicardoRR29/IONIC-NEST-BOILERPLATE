@@ -3,9 +3,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import * as request from 'supertest';
-import { AuthModule } from '../src/auth/auth.module';
-import { UsersModule } from '../src/users/users.module';
-import { User } from '../src/users/user.entity';
+import { AuthModule } from '../src/infrastructure/modules/auth.module';
+import { UsersModule } from '../src/infrastructure/modules/users.module';
+import { User } from '../src/domain/entities/user.entity';
 
 describe('Auth API (e2e)', () => {
   let app: INestApplication;
