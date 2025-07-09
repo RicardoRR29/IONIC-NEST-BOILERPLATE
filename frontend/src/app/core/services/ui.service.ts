@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  AlertController,
-  ToastController,
-} from '@ionic/angular/standalone';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Injectable({ providedIn: 'root' })
 export class UiService {

@@ -1,28 +1,15 @@
-// src/app/login/login.page.ts
+// src/app/register/register.page.ts
 import { Component } from '@angular/core';
-import {
-  IonicModule,
-  NavController,
-  ToastController,
-  LoadingController,
-} from '@ionic/angular';
-import { CommonModule } from '@angular/common';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { NavController, ToastController, LoadingController } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [IonicModule, CommonModule, ReactiveFormsModule],
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-register',
+  templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss'],
 })
-export class LoginPage {
+export class RegisterPage {
   form: FormGroup;
 
   constructor(
@@ -33,29 +20,32 @@ export class LoginPage {
     private loadingCtrl: LoadingController
   ) {
     this.form = this.fb.group({
+      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  async login() {
+  async register() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    const loading = await this.loadingCtrl.create({ message: 'Logging in…' });
+    const loading = await this.loadingCtrl.create({ message: 'Registering…' });
     await loading.present();
 
-    const { email, password } = this.form.value;
+    // ✅ Destructure to pass individual args
+    const { name, email, password } = this.form.value;
+
     try {
-      await this.authService.login(email, password);
+      await this.authService.register(name, email, password);
       await loading.dismiss();
       this.navCtrl.navigateRoot('/users');
     } catch (err: any) {
       await loading.dismiss();
       const toast = await this.toastCtrl.create({
-        message: err?.message || 'Login failed',
+        message: err?.message || 'Registration failed',
         duration: 3000,
         color: 'danger',
       });
@@ -63,7 +53,7 @@ export class LoginPage {
     }
   }
 
-  goToRegister() {
-    this.navCtrl.navigateForward('/register');
+  goToLogin() {
+    this.navCtrl.navigateBack('/login');
   }
 }
