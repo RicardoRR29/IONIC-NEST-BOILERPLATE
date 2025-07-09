@@ -1,0 +1,66 @@
+<!-- src/app/users/users.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Users</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Logout
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Search & Add -->
+  <ion-grid>
+    <ion-row class="ion-justify-content-end">
+      <ion-col size="3">
+        <ion-button expand="block" color="primary" (click)="addUser()">
+          <ion-icon slot="start" name="add-outline"></ion-icon>
+          Add User
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Users Table -->
+  <div class="table-container">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th class="actions-header">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td class="actions">
+            <ion-button
+              fill="clear"
+              shape="round"
+              color="primary"
+              (click)="editUser(user)"
+            >
+              Edit
+            </ion-button>
+            <ion-button
+              fill="clear"
+              shape="round"
+              color="danger"
+              (click)="deleteUser(user)"
+            >
+              Delete
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-add-user-modal #addModal (userCreated)="userAdded($event)"></app-add-user-modal>
+  <app-edit-user-modal #editModal (userUpdated)="userUpdated($event)"></app-edit-user-modal>
+</ion-content>

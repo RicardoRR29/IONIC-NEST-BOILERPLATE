@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  background: var(--ion-background-color);
+}
+
+.hero-card {
+  max-width: 400px;
+  margin: 2rem auto;
+  border-radius: var(--ion-card-border-radius);
+  box-shadow: var(--ion-card-box-shadow);
+
+  h1 {
+    font-size: var(--ion-font-size-xl);
+    margin-bottom: 0.5rem;
+    color: var(--ion-color-primary);
+  }
+
+  p {
+    font-size: var(--ion-font-size-md);
+    color: var(--ion-color-medium);
+  }
+}
