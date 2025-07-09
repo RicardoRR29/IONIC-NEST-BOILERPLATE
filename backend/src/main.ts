@@ -1,10 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { ErrorInterceptor } from './interface/http/interceptors/error.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalInterceptors(new ErrorInterceptor());
   app.enableCors({
     origin: process.env.CORS_ORIGIN || 'http://localhost:8100',
   });
