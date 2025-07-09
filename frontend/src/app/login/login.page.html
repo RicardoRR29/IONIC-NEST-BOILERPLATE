@@ -1,11 +1,5 @@
 <!-- src/app/login/login.page.html -->
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="login-container">
+<div class="login-container">
   <ion-card class="auth-card">
     <ion-card-header>
       <ion-card-title>Login</ion-card-title>
@@ -13,7 +7,6 @@
     <ion-card-content>
       <form [formGroup]="form" (ngSubmit)="login()">
         <ion-item lines="full">
-          <ion-icon slot="start" name="mail-outline"></ion-icon>
           <ion-input
             formControlName="email"
             label="Email"
@@ -23,7 +16,6 @@
         </ion-item>
 
         <ion-item lines="full">
-          <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
           <ion-input
             formControlName="password"
             label="Password"
@@ -56,4 +48,4 @@
       </ion-button>
     </ion-card-content>
   </ion-card>
-</ion-content>
+</div>
