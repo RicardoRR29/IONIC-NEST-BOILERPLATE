@@ -1,19 +1,32 @@
-<!-- src/app/register/register.page.html -->
-<div class="login-container">
-  <ion-card class="auth-card">
-    <ion-card-header>
-      <ion-card-title>Register</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <form [formGroup]="form" (ngSubmit)="register()">
+<ion-content class="login-wrapper" fullscreen>
+  <div class="login-container">
+    <div class="brand-header">
+      <div class="logo-circle">
+        <ion-icon name="shield-checkmark"></ion-icon>
+      </div>
+      <h1 class="text-title-xl">Sistema de Autenticação</h1>
+      <p class="text-muted">Acesso seguro com JWT</p>
+    </div>
+
+    <ion-card class="auth-card">
+      <div class="card-header">
+        <ion-icon name="person-add-outline" class="form-icon"></ion-icon>
+        <h2>Cadastro</h2>
+        <p>Crie sua conta no sistema</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="register()" class="form-body">
         <ion-item lines="full">
+          <ion-icon slot="start" name="person-outline"></ion-icon>
           <ion-input
             formControlName="name"
             label="Name"
             labelPlacement="floating"
           ></ion-input>
         </ion-item>
+
         <ion-item lines="full">
+          <ion-icon slot="start" name="mail-outline"></ion-icon>
           <ion-input
             formControlName="email"
             label="Email"
@@ -21,7 +34,9 @@
             type="email"
           ></ion-input>
         </ion-item>
+
         <ion-item lines="full">
+          <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
           <ion-input
             formControlName="password"
             label="Password"
@@ -29,26 +44,16 @@
             type="password"
           ></ion-input>
         </ion-item>
-        <ion-button
-          expand="block"
-          fill="solid"
-          color="primary"
-          class="auth-button"
-          type="submit"
-        >
+
+        <ion-button expand="block" class="btn-primary" type="submit">
           Register
         </ion-button>
       </form>
 
-      <ion-button
-        expand="block"
-        fill="clear"
-        color="secondary"
-        class="auth-button"
-        (click)="goToLogin()"
-      >
-        Back to Login
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
-</div>
+      <p class="register-link">
+        Já tem uma conta?
+        <a (click)="goToLogin()">Voltar ao login</a>
+      </p>
+    </ion-card>
+  </div>
+</ion-content>
