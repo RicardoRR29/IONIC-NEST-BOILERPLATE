@@ -72,6 +72,11 @@
     --highlight-color-focused: var(--ion-color-primary);
     margin-bottom: 1rem;
 
+    ion-icon[slot="start"] {
+      margin-right: 0.5rem;
+      color: var(--ion-color-medium);
+    }
+
     ion-input {
       font-size: var(--ion-font-size-md);
     }
