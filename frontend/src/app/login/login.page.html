@@ -1,51 +1,66 @@
-<!-- src/app/login/login.page.html -->
-<div class="login-container">
-  <ion-card class="auth-card">
-    <ion-card-header>
-      <ion-card-title>Login</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <form [formGroup]="form" (ngSubmit)="login()">
+<ion-content class="login-wrapper" fullscreen>
+  <div class="login-container">
+
+    <!-- Cabeçalho da marca (centralizado) -->
+    <div class="brand-header">
+      <div class="logo-circle">
+        <ion-icon name="shield-checkmark"></ion-icon>
+      </div>
+      <h1 class="text-title-xl">Sistema de Autenticação</h1>
+      <p class="text-muted">Acesso seguro com JWT</p>
+    </div>
+
+    <!-- Card de Login -->
+    <ion-card class="auth-card">
+      <div class="card-header">
+        <ion-icon name="business-outline" class="form-icon"></ion-icon>
+        <h2>Login</h2>
+        <p>Digite suas credenciais para acessar o sistema</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="login()" class="form-body">
         <ion-item lines="full">
           <ion-input
             formControlName="email"
             label="Email"
             labelPlacement="floating"
             type="email"
+            autocomplete="email"
+            required
           ></ion-input>
         </ion-item>
 
         <ion-item lines="full">
           <ion-input
             formControlName="password"
-            label="Password"
+            label="Senha"
             labelPlacement="floating"
-            type="password"
-            [class.valid]="form.controls['password'].valid && form.controls['password'].touched"
-            [class.invalid]="form.controls['password'].invalid && form.controls['password'].touched"
+            [type]="show ? 'text' : 'password'"
+            autocomplete="current-password"
+            required
           ></ion-input>
+          <ion-button
+            fill="clear"
+            size="small"
+            slot="end"
+            type="button"
+            (click)="show = !show"
+          >
+            <ion-icon
+              [name]="show ? 'eye-off-outline' : 'eye-outline'"
+            ></ion-icon>
+          </ion-button>
         </ion-item>
 
-        <ion-button
-          expand="block"
-          fill="solid"
-          color="primary"
-          class="auth-button"
-          type="submit"
-        >
-          Login
+        <ion-button expand="block" class="btn-primary" type="submit">
+          Entrar
         </ion-button>
       </form>
 
-      <ion-button
-        expand="block"
-        fill="clear"
-        color="secondary"
-        class="auth-button"
-        (click)="goToRegister()"
-      >
-        Register
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
-</div>
+      <p class="register-link">
+        Não tem uma conta?
+        <a (click)="goToRegister()">Cadastre-se aqui</a>
+      </p>
+    </ion-card>
+  </div>
+</ion-content>

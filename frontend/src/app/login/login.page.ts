@@ -1,4 +1,3 @@
-// src/app/login/login.page.ts
 import { Component } from '@angular/core';
 import {
   IonicModule,
@@ -17,12 +16,17 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [IonicModule, CommonModule, ReactiveFormsModule],
+  imports: [
+    IonicModule,
+    CommonModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
   form: FormGroup;
+  show = false;
 
   constructor(
     private fb: FormBuilder,
