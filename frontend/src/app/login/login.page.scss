@@ -23,7 +23,7 @@
   text-align: center;
   margin-bottom: 2.5rem;
 
-  .logo {
+  .logo-circle {
     font-size: 3.5rem;
     padding: 1.1rem;
     border-radius: 18px;
@@ -127,7 +127,7 @@
 
 /* Responsivo para telas menores */
 @media (max-width: 480px) {
-  .brand-header .logo {
+  .brand-header .logo-circle {
     font-size: 3rem;
     padding: 0.9rem;
     border-radius: 14px;
