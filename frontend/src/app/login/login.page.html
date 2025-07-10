@@ -20,6 +20,7 @@
 
       <form [formGroup]="form" (ngSubmit)="login()" class="form-body">
         <ion-item lines="full">
+          <ion-icon slot="start" name="mail-outline"></ion-icon>
           <ion-input
             formControlName="email"
             label="Email"
@@ -31,6 +32,7 @@
         </ion-item>
 
         <ion-item lines="full">
+          <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
           <ion-input
             formControlName="password"
             label="Senha"
