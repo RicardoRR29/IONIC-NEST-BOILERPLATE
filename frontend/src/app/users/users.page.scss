@@ -1,71 +1,160 @@
-/* src/app/users/users.page.scss */
-:host {
-  display: block;
+/* ===============================
+   Estilos da Tela de Usuários
+================================== */
+
+.users-wrapper {
+  --padding-top: 0;
   background: var(--ion-background-color);
+  padding: 2rem 1rem 3rem;
 }
 
-.search-card {
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  background: var(--ion-color-light);
-  border-radius: var(--ion-card-border-radius);
-  box-shadow: var(--ion-card-box-shadow);
+.users-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
 
-  ion-searchbar {
-    --background: #ffffff;
-    --border-radius: 0.5rem;
-    --placeholder-color: var(--ion-color-medium);
+/* ===============================
+   Header Visual
+================================== */
+.header-section {
+  text-align: center;
+
+  h1 {
+    font-size: var(--ion-font-size-xl);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--ion-text-color);
+  }
+
+  p {
+    font-size: var(--ion-font-size-sm);
+    color: #34405a;
   }
 }
 
-.table-container {
-  background: var(--ion-color-light);
-  border-radius: var(--ion-card-border-radius);
-  box-shadow: var(--ion-card-box-shadow);
+/* ===============================
+   Cards Estatísticos
+================================== */
+.stats-cards {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  ion-card {
+    flex: 1 1 250px;
+    max-width: 300px;
+    border-radius: var(--ion-card-border-radius);
+    box-shadow: var(--ion-card-box-shadow);
+    text-align: center;
+
+    ion-card-content {
+      padding: 1rem;
+
+      h3 {
+        font-size: 0.95rem;
+        color: #34405a;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--ion-color-primary);
+        margin: 0;
+      }
+
+      small {
+        font-size: 0.8rem;
+        color: #667085;
+      }
+    }
+  }
+}
+
+/* ===============================
+   Ações (busca + botão)
+================================== */
+.actions-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+
+  .user-search {
+    flex: 1;
+  }
+
+  ion-button {
+    height: 44px;
+    font-weight: 600;
+    --background: var(--ion-color-primary);
+    --background-hover: var(--ion-color-primary-shade);
+    --background-activated: var(--ion-color-primary-shade);
+    --color: var(--ion-color-primary-contrast);
+  }
+}
+
+/* ===============================
+   Tabela de Usuários
+================================== */
+.table-wrapper {
+  padding: 0;
   overflow-x: auto;
 }
 
 .user-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: var(--ion-font-family);
+  min-width: 600px;
 
   th,
   td {
     padding: 0.75rem 1rem;
-    font-size: var(--ion-font-size-md);
-    color: var(--ion-text-color);
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.95rem;
   }
 
-  thead th {
-    background: var(--ion-color-primary);
-    color: var(--ion-color-primary-contrast);
+  th {
     font-weight: 600;
-    border-bottom: 2px solid var(--ion-color-secondary);
+    color: #4b5563;
   }
 
-  tbody tr {
-    border-bottom: 1px solid var(--ion-color-secondary-shade);
-    transition: background-color 0.2s;
-
-    &:hover {
-      background: var(--ion-color-secondary-tint);
-    }
+  td ion-badge {
+    margin-left: 0.5rem;
   }
 
-  .actions-header {
-    text-align: center;
+  td ion-button {
+    margin-inline-start: 0.25rem;
+    margin-inline-end: 0.25rem;
   }
 
-  .actions {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
+  tr:hover {
+    background-color: #f9fbfd;
+  }
+}
 
-    ion-button {
-      font-size: var(--ion-font-size-sm);
-      --padding-start: 0.5rem;
-      --padding-end: 0.5rem;
-    }
+/* ===============================
+   Responsividade
+================================== */
+@media (max-width: 768px) {
+  .stats-cards {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .user-table {
+    min-width: 100%;
+    font-size: 0.9rem;
   }
 }

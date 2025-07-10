@@ -3,16 +3,14 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
   IonContent,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonButton,
-  IonButtons,
   IonIcon,
-  IonGrid,
-  IonRow,
-  IonCol,
+  IonSearchbar,
+  IonCard,
+  IonCardContent,
+  IonBadge,
 } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
 import { AddUserModalComponent } from '../add-user/add-user-modal.component';
 import { EditUserModalComponent } from '../edit-user-modal/edit-user-modal.component';
 import { UserService, User } from '../services/user.service';
@@ -25,23 +23,24 @@ import { UiService } from '../services/ui.service';
   styleUrls: ['./users.page.scss'],
   standalone: true,
   imports: [
-    IonIcon,
-    IonGrid,
-    IonRow,
-    IonCol,
     CommonModule,
+    FormsModule, // ✅ Necessário para ngModel funcionar
     IonContent,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonButton,
-    IonButtons,
+    IonIcon,
+    IonSearchbar,
+    IonCard,
+    IonCardContent,
+    IonBadge,
     AddUserModalComponent,
     EditUserModalComponent,
   ],
 })
 export class UsersPage implements OnInit {
   users: User[] = [];
+  search: string = '';
+  currentUser: User | null = null;
+
   @ViewChild(AddUserModalComponent) addModal!: AddUserModalComponent;
   @ViewChild(EditUserModalComponent) editModal!: EditUserModalComponent;
 
@@ -62,6 +61,19 @@ export class UsersPage implements OnInit {
 
   async load() {
     this.users = await this.userService.findAll();
+
+    // ✅ Supondo que o AuthService tenha `user` preenchido após login
+    this.currentUser = this.auth.user;
+  }
+
+  filteredUsers(): User[] {
+    if (!this.search.trim()) return this.users;
+    const query = this.search.toLowerCase();
+    return this.users.filter(
+      (u) =>
+        u.name.toLowerCase().includes(query) ||
+        u.email.toLowerCase().includes(query)
+    );
   }
 
   addUser() {
@@ -84,24 +96,24 @@ export class UsersPage implements OnInit {
   }
 
   async deleteUser(user: User) {
-    const ok = await this.ui.confirm('Delete user?');
+    const ok = await this.ui.confirm('Deseja excluir este usuário?');
     if (!ok) return;
     try {
       await this.userService.delete(user.id);
-      this.ui.toast('User deleted', 'success');
+      this.ui.toast('Usuário excluído', 'success');
       if (user.id === this.auth.userId) {
         this.logout();
       } else {
         this.load();
       }
     } catch {
-      // error handled globally
+      // handled globally
     }
   }
 
   logout() {
     this.auth.logout();
     this.router.navigateByUrl('/login');
-    this.ui.toast('Logged out', 'success');
+    this.ui.toast('Sessão encerrada', 'success');
   }
 }
