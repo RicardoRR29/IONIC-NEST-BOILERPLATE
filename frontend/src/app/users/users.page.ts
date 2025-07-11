@@ -51,11 +51,19 @@ export class UsersPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.load();
+    if (this.auth.isLoggedIn()) {
+      this.load();
+    } else {
+      this.router.navigateByUrl('/login');
+    }
   }
 
   ionViewWillEnter() {
-    this.load();
+    if (this.auth.isLoggedIn()) {
+      this.load();
+    } else {
+      this.router.navigateByUrl('/login');
+    }
   }
 
   async load() {

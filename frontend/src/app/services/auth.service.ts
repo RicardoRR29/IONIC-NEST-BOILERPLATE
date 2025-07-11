@@ -56,6 +56,20 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!this.token;
+    const token = this.token;
+    if (!token) {
+      return false;
+    }
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      if (payload.exp && Date.now() < payload.exp * 1000) {
+        return true;
+      }
+    } catch {
+      // ignore parsing errors
+    }
+    // token invalid or expired
+    this.logout();
+    return false;
   }
 }
