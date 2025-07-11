@@ -62,8 +62,9 @@ export class UsersPage implements OnInit {
   async load() {
     this.users = await this.userService.findAll();
 
-    // ✅ Supondo que o AuthService tenha `user` preenchido após login
-    this.currentUser = this.auth.user;
+    // get the userId from the token and resolve the current user
+    const id = this.auth.userId;
+    this.currentUser = id ? this.users.find((u) => u.id === id) ?? null : null;
   }
 
   filteredUsers(): User[] {
