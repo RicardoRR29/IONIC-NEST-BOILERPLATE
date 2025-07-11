@@ -1,87 +1,74 @@
-C:.
-├───application
-│   ├───dto
-│   └───use-cases
-│       ├───auth
-│       └───user
-├───domain
-│   ├───entities
-│   ├───repositories
-│   └───services
-├───infrastructure
-│   ├───database
-│   │   └───postgres
-│   ├───modules
-│   └───services
-└───interface
-    └───http
-        ├───controllers
-        └───guards
+# Estrutura atual do frontend
 
+A aplicação front-end vive no diretório `frontend/` e utiliza Angular 20 com Ionic. Ela fornece telas de login, registro e uma área para gerenciar usuários autenticados. O token JWT é armazenado no `localStorage` e enviado por interceptadores em todas as requisições. Componentes compartilhados e serviços centrais garantem coesão e reutilização da UI.
 
-Abaixo está a explicação da estrutura de pastas do projeto em Angular + Ionic, com ênfase em boas práticas de arquitetura em front-end moderno, aplicando componentização, injeção de dependência, modularidade e segurança.
-
-Cada item da estrutura é explicado em exatas 5 linhas, conforme solicitado:
+```
+C:./frontend/src
+├── app
+│   ├── auth
+│   ├── core
+│   │   ├── interceptors
+│   │   └── services
+│   ├── shared
+│   │   ├── confirm-modal
+│   │   ├── header
+│   │   ├── sidebar
+│   │   └── table
+│   ├── users
+│   │   ├── components
+│   │   └── pages
+│   ├── services
+├── assets
+│   └── icon
+├── environments
+├── theme
+└── cypress
+```
 
 📁 app/
-É a raiz da aplicação Angular, onde se organiza a lógica por domínios funcionais (auth, users, core, shared). Segue o princípio de feature modules e divisão por responsabilidades. Contém rotas, componentes, serviços e páginas organizados. Garante que cada parte do sistema seja modular e reutilizável. A separação por domínio facilita manutenção e escalabilidade.
+É o núcleo do Angular, onde ficam módulos como auth, users, core e shared. A organização por domínios facilita o lazy loading e a manutenção. Também contém o arquivo de rotas principal. Cada módulo possui seus próprios componentes e serviços. Essa divisão segue o padrão Angular moderno.
 
 📁 app/auth/
-Módulo dedicado ao domínio de autenticação do sistema. Centraliza tudo que diz respeito a login, registro, guards de rota e serviços de autenticação. É um domínio crítico que exige segurança, isolamento e clareza. Permite que o módulo seja carregado separadamente, caso necessário. Garante que a lógica de autenticação fique separada do restante da aplicação.
+Contém a página de autenticação usada para login e registro. Inclui o `AuthGuard` que protege rotas privadas. Centraliza regras de validação e uso do `AuthService`. O módulo é carregado de forma stand‑alone para agilidade. Mantém a lógica de login isolada do restante da aplicação.
 
-📁 app/auth/guards/
-Contém guards de rota Angular, como AuthGuard, que validam se o usuário está autenticado. São executados antes de acessar uma rota protegida. Ajudam a manter a integridade do fluxo de navegação. Isolam a lógica de permissão da lógica de interface. Trabalham em conjunto com o AuthService e o Router.
-
-📁 app/auth/pages/
-Agrupa as páginas relacionadas à autenticação, como Login e Registro. Cada subpasta representa uma rota completa, com HTML, CSS e lógica TypeScript. Segue o padrão do Angular + Ionic de modularidade baseada em rotas. Favorece lazy loading e encapsulamento de responsabilidades. A divisão por página ajuda na legibilidade e testes.
-
-📁 app/auth/pages/login/
-Página de login do usuário. Contém o componente responsável por exibir o formulário de login, validar campos e enviar a requisição. Se comunica com o AuthService para autenticar o usuário. Também trata erros e redirecionamentos. Seu objetivo é ser simples, seguro e intuitivo para entrada no sistema.
-
-📁 app/auth/pages/register/
-Página de cadastro de novo usuário. Exibe um formulário validado com campos obrigatórios e seguros. Ao submeter, chama o serviço de autenticação para registrar o usuário. Após o sucesso, redireciona ou informa. Trabalha em conjunto com o backend via HTTP. Implementa UX básica com feedback visual de erro e carregamento.
-
-📁 app/auth/services/
-Serviços de autenticação como AuthService, que centraliza login, logout, registro e armazenamento de token. Utiliza HttpClient para comunicação com a API. Pode usar BehaviorSubject para gerenciar o estado de autenticação. Serve como fonte de verdade para o estado do usuário logado. Evita duplicação de lógica entre componentes.
+📁 app/services/
+Abriga serviços globais como `AuthService` e `UserService`. O `AuthService` cuida do login, registro e leitura do token do `localStorage`. O `UserService` faz chamadas HTTP para o backend. Estes serviços são injetados em componentes conforme necessário. Facilitam testes e reaproveitamento do código.
 
 📁 app/core/
-Contém recursos centrais e genéricos da aplicação, como interceptadores globais e serviços utilitários. É um módulo singleton, carregado uma única vez. Garante que lógica transversal esteja centralizada. Evita duplicação e facilita configuração global. Também pode incluir serviços como HttpErrorHandler, StorageService e TokenStorage.
+Define infraestrutura comum do projeto. Agrupa interceptadores e serviços de apoio que existem apenas uma vez. Utiliza o padrão singleton para configurações globais. Mantém a aplicação livre de duplicação de código transversal. É carregado na inicialização principal do app.
 
 📁 app/core/interceptors/
-Contém os interceptadores HTTP, como AuthInterceptor, que injeta o token JWT nas requisições. Também pode haver interceptadores para tratamento global de erros. Atua como middleware para HttpClient. É essencial para segurança e rastreamento de erros. Centraliza a lógica de requisição sem precisar alterar cada serviço.
+Guarda interceptadores do `HttpClient`. O `authInterceptor` injeta o token em cada requisição autenticada. O `http-error.interceptor` traduz códigos e exibe toasts de erro. Ambos atuam como middleware de rede. Ajudam na segurança e no feedback ao usuário.
 
 📁 app/core/services/
-Serviços genéricos e reutilizáveis, como armazenamento local (TokenStorageService), gerenciamento de sessão, navegação etc. São injetáveis globalmente e podem ser usados em qualquer módulo. São fundamentais para aplicar lógica centralizada. Reduzem redundância e mantêm a aplicação limpa. Ficam disponíveis através da injeção de dependência Angular.
+Contém serviços utilitários como `UiService` e `ErrorTranslatorService`. O `UiService` centraliza toasts e diálogos de confirmação. `ErrorTranslatorService` converte códigos em mensagens legíveis. Estes serviços são usados por todo o sistema. Tornam a experiência do usuário mais amigável.
 
 📁 app/shared/
-Contém componentes reutilizáveis, pipes, diretivas ou interfaces que são usados por diversos domínios. É um módulo agnóstico de regras de negócio. Promove a reutilização de UI e lógica comum. Ajuda a manter consistência visual e funcional em toda a aplicação. Deve ser pequeno, coeso e desacoplado.
+Reúne componentes visuais reutilizáveis. Inclui `Header`, `Sidebar`, `ConfirmModal` e a tabela genérica `Table`. Estes elementos reforçam consistência de design. Podem ser usados em qualquer módulo sem regras de negócio. Mantêm a UI coesa e expansível.
+
+📁 app/shared/confirm-modal/
+Implementa um modal reutilizável para confirmações. Recebe a mensagem e retorna uma `Promise` de resposta. Útil para exclusões ou ações críticas. Evita repetição de código de diálogo nos componentes. Melhora a interação com o usuário.
+
+📁 app/shared/table/
+Componente de tabela genérica para listar qualquer entidade. Aceita definição de colunas e ações de edição ou exclusão. Permite destacar a linha do usuário logado com badge. Substitui tabelas específicas e reduz código. Facilita manutenção das listagens.
 
 📁 app/users/
-Domínio funcional para gerenciamento de usuários. Contém páginas, componentes e serviços que lidam com usuários cadastrados. Totalmente separado do módulo de autenticação. Permite listar, adicionar, editar e excluir usuários. Organizado para facilitar manutenção e expansão.
+Módulo responsável pelo gerenciamento de usuários. Carrega a lista a partir do backend e exibe na tabela genérica. Permite criar, editar e remover usuários via modal. Usa `AuthService` para identificar o usuário logado. Só é acessível após autenticação.
 
 📁 app/users/components/
-Componentes internos que representam partes reutilizáveis da UI relacionada a usuários. Cada subpasta representa um componente encapsulado com sua própria lógica. Componentes como modais, formulários e cards ficam aqui. Promove o padrão de componentização inteligente e coesa. Ajuda a criar interfaces responsivas e reaproveitáveis.
-
-📁 app/users/components/add-user/
-Componente dedicado ao cadastro de novos usuários. Contém o formulário, a validação e a comunicação com o serviço. Pode ser um modal ou página independente. O objetivo é encapsular toda a lógica do "Add User". Isola o comportamento de adição sem depender do restante da interface.
-
-📁 app/users/components/edit-user-modal/
-Componente de modal para edição de usuários existentes. Reaproveita a lógica de formulário, mas com dados pré-preenchidos. Usa serviços para buscar e atualizar dados no backend. É reutilizado pela listagem ou outras páginas. Mantém o código limpo separando o modal da página principal.
+Armazena partes reutilizáveis da área de usuários. Inclui `AddUserModal`, `UserStats` e `UsersTable`. Cada componente trata de uma pequena responsabilidade. Pode ser usado em diferentes páginas sem duplicação. Reflete a filosofia de componentização do Angular.
 
 📁 app/users/pages/
-Agrupa as páginas de usuários (ex: listagem, perfil, painel). Cada página representa uma rota da aplicação. Recebe dados do serviço e usa os componentes internos para exibir a UI. Segue o padrão Angular de lazy modules + routing. É onde a lógica de fluxo e interação com o usuário ocorre.
-
-📁 app/users/services/
-Serviços específicos para usuários, como UserService, que executa chamadas HTTP para o backend. Concentra toda a lógica de comunicação com a API relacionada a usuários. Separa completamente a lógica de rede da UI. Trabalha com observables para tratar dados reativos. Pode ser mockado em testes com facilidade.
+Reúne as páginas principais relacionadas a usuários. `users.page` organiza a listagem e as ações disponíveis. Integra serviços e componentes para exibir dados. Aplica o padrão de stand‑alone components do Angular. Carrega somente quando a rota `/users` é acessada.
 
 📁 assets/
-Contém recursos estáticos como imagens, ícones, fontes e outros arquivos usados na interface. É público e acessível diretamente via URL. Em projetos Ionic, pode conter splash screens ou ícones da aplicação. Organizar bem essa pasta ajuda na manutenção visual. Evite carregar arquivos dinâmicos aqui (use APIs para isso).
-
-📁 assets/icon/
-Armazena os ícones da aplicação, como o favicon, ícones PWA e logos. Utilizados automaticamente por configurações do Ionic ou index.html. Manter os ícones vetoriais aqui facilita a adaptação a diferentes resoluções. Pode incluir variações para temas escuros e claros. Essencial para personalizar a aparência do app.
+Armazena imagens, ícones e outros arquivos estáticos. Os ícones PWA ficam em `assets/icon`. Estes recursos são servidos diretamente pelo Angular. A organização facilita personalizar o layout. Não devem conter arquivos gerados dinamicamente.
 
 📁 environments/
-Contém arquivos de configuração separados para ambientes de desenvolvimento e produção. Exemplo: environment.ts (dev) e environment.prod.ts (produção). Define variáveis como API_URL, enableDebug, useMock. O Angular substitui esses arquivos automaticamente no build. Ajuda a tornar o projeto portável e configurável.
+Define variáveis separadas para desenvolvimento e produção. O Angular substitui `environment.ts` pelo arquivo correto no build. Configura a URL da API e outras opções de runtime. Mantém a aplicação flexível para diferentes cenários. Evita hardcode de valores sensíveis.
 
 📁 theme/
-Pasta usada em projetos Ionic para definir variáveis de estilo, cores, temas globais e personalizações do CSS. Geralmente contém variables.scss. Permite aplicar identidade visual ao aplicativo. É o ponto central de design e responsividade. Promove consistência visual e facilita a aplicação de temas claros/escuros.
+Contém `variables.scss` com cores e estilos globais do Ionic. Permite alterar temas de forma centralizada. Ajuda a manter consistência visual em todo o app. Pode ser expandido para suportar temas claro e escuro. É carregado automaticamente pelo Ionic.
+
+📁 cypress/
+Pasta de testes end‑to‑end escritos em Cypress. Há um exemplo simples que valida a tela de login. Os testes executam com `npm run e2e`. Útil para garantir o fluxo principal da aplicação. Mantém a confiança na integração com o backend.
