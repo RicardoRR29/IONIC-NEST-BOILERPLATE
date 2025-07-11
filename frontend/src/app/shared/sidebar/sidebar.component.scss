@@ -1,3 +1,19 @@
-ion-menu {
-  --width: 250px;
+.menu-content {
+  --background: #f4f5f8;
+}
+
+ion-toolbar {
+  --background: var(--ion-color-primary);
+  --color: white;
+  text-align: center;
+}
+
+ion-item {
+  --padding-start: 16px;
+  --inner-padding-end: 16px;
+  --min-height: 56px;
+  font-size: 16px;
+  --color: #222;
+  --border-radius: 8px;
+  margin: 4px 8px;
 }

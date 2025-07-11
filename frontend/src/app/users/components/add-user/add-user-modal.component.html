@@ -6,7 +6,7 @@
 >
   <ng-template>
     <ion-card-header>
-      <ion-card-title>{{ editing ? 'Edit User' : 'Add User' }}</ion-card-title>
+      <ion-card-title>{{ editing ? "Edit User" : "Add User" }}</ion-card-title>
       <ion-buttons slot="end">
         <ion-button (click)="close()" fill="clear">
           <ion-icon name="close-outline"></ion-icon>
@@ -32,14 +32,13 @@
             autocomplete="off"
           ></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="!editing">
           <ion-input
             formControlName="password"
             label="Password"
             labelPlacement="floating"
             type="password"
             autocomplete="off"
-            [disabled]="editing"
           ></ion-input>
         </ion-item>
         <ion-button

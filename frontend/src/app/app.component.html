@@ -1,9 +1,15 @@
 <ion-app>
-  <ion-split-pane when="(min-width: 768px)" contentId="main" *ngIf="auth.isLoggedIn(); else basic">
-    <app-sidebar></app-sidebar>
-    <ion-router-outlet id="main"></ion-router-outlet>
-  </ion-split-pane>
+  <!-- Menu visível apenas quando logado -->
+  <ng-container *ngIf="auth.isLoggedIn(); else basic">
+    <ion-split-pane contentId="main" when="true">
+      <app-sidebar></app-sidebar>
+
+      <ion-router-outlet id="main"></ion-router-outlet>
+    </ion-split-pane>
+  </ng-container>
+
+  <!-- Layout básico (login, register, etc) -->
   <ng-template #basic>
-    <ion-router-outlet id="main"></ion-router-outlet>
+    <ion-router-outlet></ion-router-outlet>
   </ng-template>
 </ion-app>

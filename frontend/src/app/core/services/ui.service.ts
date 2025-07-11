@@ -5,12 +5,12 @@ import { AlertController, ToastController } from '@ionic/angular';
 export class UiService {
   constructor(
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController,
+    private alertCtrl: AlertController
   ) {}
 
   async toast(
     message: string,
-    color: 'success' | 'danger' | 'warning' | 'primary' = 'primary',
+    color: 'success' | 'danger' | 'warning' | 'primary' = 'primary'
   ) {
     const toast = await this.toastCtrl.create({
       message,

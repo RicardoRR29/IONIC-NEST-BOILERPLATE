@@ -1,14 +1,19 @@
 <ion-menu contentId="main" type="overlay">
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-list>
+  <ion-content class="menu-content">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-list lines="full">
       <ion-menu-toggle auto-hide="false">
-        <ion-item routerLink="/users" routerDirection="root">
-          <ion-icon slot="start" name="people-outline"></ion-icon>
+        <ion-item button routerLink="/users" routerDirection="root">
+          <ion-icon
+            slot="start"
+            name="people-outline"
+            color="medium"
+          ></ion-icon>
           <ion-label>Usuários</ion-label>
         </ion-item>
       </ion-menu-toggle>

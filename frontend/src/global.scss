@@ -16,9 +16,6 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-
-
-
 /* ================================
    Utilitários Globais Reutilizáveis
 ================================== */
@@ -63,8 +60,41 @@ body {
   justify-content: center;
 }
 
-
-ion-card{ 
+ion-card {
   background-color: white;
   margin: 0;
+}
+
+.custom-alert {
+  --background: #ffffff;
+  --border-radius: 16px;
+  --width: 90%;
+  --max-width: 380px;
+  --box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  .alert-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  .alert-message {
+    font-size: 1rem;
+    color: #4b5563;
+    padding: 0 8px;
+  }
+
+  .alert-button {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .alert-button.alert-confirm {
+    color: var(--ion-color-primary);
+  }
+
+  .alert-button.alert-cancel {
+    color: #9ca3af;
+  }
 }
