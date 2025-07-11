@@ -48,6 +48,14 @@ export class AuthService {
     }
   }
 
+  /**
+   * Temporary helper to access the logged in user id.
+   * Allows templates using `auth.user` to keep working.
+   */
+  get user(): number | null {
+    return this.userId;
+  }
+
   isLoggedIn(): boolean {
     return !!this.token;
   }

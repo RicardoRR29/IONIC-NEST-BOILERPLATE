@@ -45,6 +45,16 @@ export class AuthService {
     }
   }
 
+  /**
+   * Temporary helper to access the logged in user id.
+   *
+   * Some components expect `auth.user` to exist. Exposing a
+   * getter avoids template errors without changing the API.
+   */
+  get user(): number | null {
+    return this.userId;
+  }
+
   isLoggedIn(): boolean {
     return !!this.token;
   }
