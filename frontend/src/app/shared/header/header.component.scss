@@ -1,5 +1,7 @@
-/* simple spacing for header elements */
-ion-toolbar {
+ion-toolbar.white-header {
+  --background: #ffffff;
+  --color: #1e1e1e; // texto e ícone escuros (opcional)
   --padding-start: 16px;
   --padding-end: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); // leve sombra para destacar
 }
