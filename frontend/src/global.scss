@@ -16,9 +16,6 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-
-
-
 /* ================================
    Utilitários Globais Reutilizáveis
 ================================== */
@@ -63,8 +60,12 @@ body {
   justify-content: center;
 }
 
-
-ion-card{ 
+ion-card {
   background-color: white;
   margin: 0;
+}
+
+/* Padding for loading toast */
+.loading-toast .loading-wrapper {
+  padding: 12px;
 }

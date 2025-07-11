@@ -1,10 +1,6 @@
 // src/app/register/register.page.ts
 import { Component } from '@angular/core';
-import {
-  IonicModule,
-  NavController,
-  LoadingController,
-} from '@ionic/angular';
+import { IonicModule, NavController, LoadingController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -28,7 +24,7 @@ export class RegisterPage {
     private fb: FormBuilder,
     private authService: AuthService,
     private navCtrl: NavController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -43,7 +39,10 @@ export class RegisterPage {
       return;
     }
 
-    const loading = await this.loadingCtrl.create({ message: 'Registering…' });
+    const loading = await this.loadingCtrl.create({
+      message: 'Registering…',
+      cssClass: 'loading-toast',
+    });
     await loading.present();
 
     // ✅ Destructure to pass individual args
