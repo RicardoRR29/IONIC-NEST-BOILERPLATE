@@ -3,8 +3,9 @@
   <ng-container *ngIf="auth.isLoggedIn(); else basic">
     <ion-split-pane contentId="main" when="true">
       <app-sidebar></app-sidebar>
-
-      <ion-router-outlet id="main"></ion-router-outlet>
+      <div class="outlet-wrapper">
+        <ion-router-outlet id="main"></ion-router-outlet>
+      </div>
     </ion-split-pane>
   </ng-container>
 

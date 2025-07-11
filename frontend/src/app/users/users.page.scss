@@ -1,84 +1,78 @@
-/* ===============================
-   Estilos da Tela de Usuários
-================================== */
-
 .users-wrapper {
-  --padding-top: 0;
   background: var(--ion-background-color);
   padding: 2rem 1rem 3rem;
 }
 
 .users-container {
   max-width: 1100px;
+  padding: 0 1rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 /* ===============================
-   Header Visual
+   Cabeçalho
 ================================== */
 .header-section {
   text-align: center;
 
   h1 {
-    font-size: var(--ion-font-size-xl);
+    font-size: 1.75rem;
     font-weight: 700;
+    color: #1f2937;
     margin-bottom: 0.5rem;
-    color: var(--ion-text-color);
   }
 
   p {
-    font-size: var(--ion-font-size-sm);
-    color: #34405a;
+    font-size: 0.95rem;
+    color: #6b7280;
   }
 }
 
 /* ===============================
-   Cards Estatísticos
+   Cards de resumo
 ================================== */
 .stats-cards {
   display: flex;
-  gap: 2rem;
   flex-wrap: wrap;
+  gap: 1.5rem;
   justify-content: center;
 
   ion-card {
-    flex: 1 1 250px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--ion-card-border-radius);
-    box-shadow: var(--ion-card-box-shadow);
+    flex: 1;
     text-align: center;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 
     ion-card-content {
-      padding: 1rem;
+      padding: 1.25rem;
 
       h3 {
-        font-size: 0.95rem;
-        color: #34405a;
-        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.25rem;
       }
 
       p {
-        font-size: 1.1rem;
-        font-weight: 600;
+        font-size: 1.25rem;
+        font-weight: 700;
         color: var(--ion-color-primary);
         margin: 0;
       }
 
       small {
-        font-size: 0.8rem;
-        color: #667085;
+        font-size: 0.75rem;
+        color: #9ca3af;
       }
     }
   }
 }
 
 /* ===============================
-   Ações (busca + botão)
+   Barra de ações
 ================================== */
 .actions-bar {
   display: flex;
@@ -96,34 +90,22 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
 
-  .searchbar-input-container {
-    --border-radius: 12px;
-  }
-  .searchbar-input {
-    border-radius: 12px;
-    --border-radius: 12px;
-  }
-
-  // not
-  //not .searchbar-input
   ion-button {
     height: 44px;
     font-weight: 600;
     --background: var(--ion-color-primary);
-    --background-hover: var(--ion-color-primary-shade);
-    --background-activated: var(--ion-color-primary-shade);
+    --border-radius: 12px;
     --color: var(--ion-color-primary-contrast);
   }
 }
 
 /* ===============================
-   Tabela de Usuários
+   Tabela de usuários
 ================================== */
 .table-wrapper {
-  --border-radius: 12px;
-  border-radius: 12px; // necessário para aplicar fora do shadow DOM
-  overflow: hidden; // evita que cantos fiquem quadrados quando tiver scroll
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); // opcional, para dar leve destaque
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
 .user-table {
@@ -133,45 +115,43 @@
 
   th,
   td {
-    padding: 0.75rem 1rem;
+    padding: 0.85rem 1rem;
     text-align: left;
-    border-bottom: 1px solid #e2e8f0;
     font-size: 0.95rem;
+    border-bottom: 1px solid #f3f4f6;
   }
 
   th {
     font-weight: 600;
-    color: #4b5563;
+    color: #6b7280;
+    background-color: #f9fafb;
+  }
+
+  td {
+    color: #374151;
+  }
+
+  tr:hover {
+    background-color: #f1f5f9;
+  }
+
+  .table-actions-buttons {
+    display: flex;
+    gap: 0.5rem;
   }
 
   td ion-badge {
     margin-left: 0.5rem;
   }
-
-  td ion-button {
-    margin-inline-start: 0.25rem;
-    margin-inline-end: 0.25rem;
-  }
-
-  tr:hover {
-    background-color: #f9fbfd;
-  }
-  .table-actions-buttons-header {
-    width: 1%;
-  }
-
-  .table-actions-buttons {
-    display: flex;
-  }
 }
 
 /* ===============================
-   Responsividade
+   Responsivo
 ================================== */
 @media (max-width: 768px) {
   .stats-cards {
     flex-direction: column;
-    align-items: stretch;
+    gap: 1rem;
   }
 
   .actions-bar {
@@ -181,6 +161,9 @@
 
   .user-table {
     min-width: 100%;
-    font-size: 0.9rem;
   }
+}
+
+.table-actions-buttons-header {
+  width: 1%;
 }
