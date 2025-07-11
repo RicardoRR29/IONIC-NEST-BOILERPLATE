@@ -46,13 +46,13 @@ describe('Users API (e2e)', () => {
     const regRes = await request(httpServer)
       .post('/auth/register')
       .send({ name: 'Dave', email: 'dave@example.com', password: 'Pass@123' });
-    const regBody = regRes.body as RegisterResponse;
+    const regBody = regRes.body as unknown as RegisterResponse;
     userId = regBody.id;
 
     const loginRes = await request(httpServer)
       .post('/auth/login')
       .send({ email: 'dave@example.com', password: 'Pass@123' });
-    const loginBody = loginRes.body as LoginResponse;
+    const loginBody = loginRes.body as unknown as LoginResponse;
     token = loginBody.access_token;
   });
 

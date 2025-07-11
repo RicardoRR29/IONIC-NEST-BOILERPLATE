@@ -60,7 +60,7 @@ describe('Auth API (e2e)', () => {
       .send({ name: 'Alice', email: 'alice@example.com', password: 'Pass@123' })
       .expect(201);
 
-    const body = response.body as RegisterResponse;
+    const body = response.body as unknown as RegisterResponse;
 
     expect(typeof body.id).toBe('number');
     expect(body.name).toBe('Alice');
@@ -77,7 +77,7 @@ describe('Auth API (e2e)', () => {
       .send({ email: 'bob@example.com', password: 'Pass@123' })
       .expect(201);
 
-    const body = response.body as LoginResponse;
+    const body = response.body as unknown as LoginResponse;
     expect(typeof body.access_token).toBe('string');
   });
 
@@ -93,7 +93,7 @@ describe('Auth API (e2e)', () => {
       .send({ email: 'carol@example.com', password: 'Pass@123' })
       .expect(201);
 
-    const loginBody = loginResponse.body as LoginResponse;
+    const loginBody = loginResponse.body as unknown as LoginResponse;
     const token: string = loginBody.access_token;
 
     const profileResponse = await request(httpServer)
@@ -101,7 +101,7 @@ describe('Auth API (e2e)', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect(201);
 
-    const profile = profileResponse.body as ProfileResponse;
+    const profile = profileResponse.body as unknown as ProfileResponse;
 
     expect(typeof profile.userId).toBe('number');
     expect(profile.email).toBe('carol@example.com');
