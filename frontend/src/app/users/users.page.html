@@ -1,6 +1,5 @@
 <ion-content class="users-wrapper" fullscreen>
   <div class="users-container">
-
     <!-- Cabeçalho -->
     <div class="header-section">
       <h1 class="text-title-xl">Gerenciamento de Usuários</h1>
@@ -18,7 +17,9 @@
       <ion-card>
         <ion-card-content>
           <h3>Usuário Logado</h3>
-          <p>{{ currentUser?.name }}<br /><small>{{ currentUser?.email }}</small></p>
+          <p>
+            {{ currentUser?.name }}<br /><small>{{ currentUser?.email }}</small>
+          </p>
         </ion-card-content>
       </ion-card>
       <ion-card>
@@ -51,17 +52,21 @@
             <tr>
               <th>Nome</th>
               <th>Email</th>
-              <th style="width: 1%; ">Ações</th>
+              <th class="table-actions-buttons-header">Ações</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let user of filteredUsers()">
               <td>
                 {{ user.name }}
-                <ion-badge *ngIf="user.email === currentUser?.email" color="primary">Você</ion-badge>
+                <ion-badge
+                  *ngIf="user.email === currentUser?.email"
+                  color="primary"
+                  >Você</ion-badge
+                >
               </td>
               <td>{{ user.email }}</td>
-                <td class="tableactions-buttons" >
+              <td class="table-actions-buttons">
                 <ion-button
                   fill="clear"
                   size="small"
@@ -78,7 +83,7 @@
                 >
                   <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
                 </ion-button>
-                </td>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -86,7 +91,13 @@
     </ion-card>
 
     <!-- Modais -->
-    <app-add-user-modal #addModal (userCreated)="userAdded($event)"></app-add-user-modal>
-    <app-edit-user-modal #editModal (userUpdated)="userUpdated($event)"></app-edit-user-modal>
+    <app-add-user-modal
+      #addModal
+      (userCreated)="userAdded($event)"
+    ></app-add-user-modal>
+    <app-edit-user-modal
+      #editModal
+      (userUpdated)="userUpdated($event)"
+    ></app-edit-user-modal>
   </div>
 </ion-content>
