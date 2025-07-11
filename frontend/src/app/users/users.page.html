@@ -1,66 +1,62 @@
 <!-- src/app/users/users.page.html -->
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Users</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="logout()">
-        <ion-icon slot="start" name="log-out-outline"></ion-icon>
-        Logout
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-sidebar></app-sidebar>
+<div id="main-content">
+  <app-header (newUser)="addUser()"></app-header>
 
-<ion-content class="ion-padding">
-  <!-- Search & Add -->
-  <ion-grid>
-    <ion-row class="ion-justify-content-end">
-      <ion-col size="3">
-        <ion-button expand="block" color="primary" (click)="addUser()">
-          <ion-icon slot="start" name="add-outline"></ion-icon>
-          Add User
+  <ion-content class="ion-padding">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="4">
+          <ion-card class="dashboard-card">
+            <ion-icon name="people-outline"></ion-icon>
+            <div>
+              <h3>Usuários</h3>
+              <p>{{ users.length }}</p>
+            </div>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" sizeMd="4">
+          <ion-card class="dashboard-card">
+            <ion-icon name="person-outline"></ion-icon>
+            <div>
+              <h3>Logado</h3>
+              <p>{{ currentUser?.name }}</p>
+            </div>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" sizeMd="4">
+          <ion-card class="dashboard-card">
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+            <div>
+              <h3>Status</h3>
+              <p>{{ auth.token ? 'Ativo' : 'Expirado' }}</p>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-searchbar [(ngModel)]="search"></ion-searchbar>
+
+    <div *ngFor="let user of filteredUsers" class="user-list-card">
+      <ion-avatar slot="start" class="icon-badge">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-avatar>
+      <ion-label class="ion-text-wrap" style="margin-left:0.5rem;">
+        <h3>{{ user.name }}</h3>
+        <p class="text-muted">{{ user.email }}</p>
+      </ion-label>
+      <ion-buttons slot="end" style="margin-left:auto;">
+        <ion-button fill="clear" color="primary" (click)="editUser(user)">
+          <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
         </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        <ion-button fill="clear" color="danger" (click)="deleteUser(user)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
 
-  <!-- Users Table -->
-  <div class="table-container">
-    <table class="user-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th class="actions-header">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td class="actions">
-            <ion-button
-              fill="clear"
-              shape="round"
-              color="primary"
-              (click)="editUser(user)"
-            >
-              Edit
-            </ion-button>
-            <ion-button
-              fill="clear"
-              shape="round"
-              color="danger"
-              (click)="deleteUser(user)"
-            >
-              Delete
-            </ion-button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <app-add-user-modal #addModal (userCreated)="userAdded($event)"></app-add-user-modal>
-  <app-edit-user-modal #editModal (userUpdated)="userUpdated($event)"></app-edit-user-modal>
-</ion-content>
+    <app-add-user-modal #addModal (userCreated)="userAdded($event)"></app-add-user-modal>
+    <app-edit-user-modal #editModal (userUpdated)="userUpdated($event)"></app-edit-user-modal>
+  </ion-content>
+</div>

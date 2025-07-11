@@ -16,7 +16,7 @@ import {
 import { AddUserModalComponent } from '../components/add-user/add-user-modal.component';
 import { EditUserModalComponent } from '../components/edit-user-modal/edit-user-modal.component';
 import { UserService, User } from '../services/user.service';
-import { AuthService } from '../../auth/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { UiService } from '../../core/services/ui.service';
 
 @Component({
