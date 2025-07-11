@@ -6,15 +6,14 @@ import {
   IonButton,
   IonIcon,
   IonSearchbar,
-  IonCard,
-  IonCardContent,
-  IonBadge,
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { AddUserModalComponent } from './components/add-user/add-user-modal.component';
 import { HeaderComponent } from '../shared/header/header.component';
 import { ConfirmModalComponent } from '../shared/confirm-modal/confirm-modal.component';
+import { UserStatsComponent } from './components/user-stats/user-stats.component';
+import { UsersTableComponent } from './components/users-table/users-table.component';
 import { User, UserService } from './services/user.service';
 import { UiService } from '../core/services/ui.service';
 
@@ -30,12 +29,11 @@ import { UiService } from '../core/services/ui.service';
     IonButton,
     IonIcon,
     IonSearchbar,
-    IonCard,
-    IonCardContent,
-    IonBadge,
     HeaderComponent,
     AddUserModalComponent,
     ConfirmModalComponent,
+    UserStatsComponent,
+    UsersTableComponent,
   ],
 })
 export class UsersPage implements OnInit {

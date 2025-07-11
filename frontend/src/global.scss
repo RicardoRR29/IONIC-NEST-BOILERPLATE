@@ -65,6 +65,10 @@ ion-card {
   margin: 0;
 }
 
+/* Padding for loading toast */
+.loading-toast .loading-wrapper {
+  padding: 12px;
+  }
 .custom-alert {
   --background: #ffffff;
   --border-radius: 16px;

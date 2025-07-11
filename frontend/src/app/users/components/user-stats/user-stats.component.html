@@ -1,0 +1,22 @@
+<div class="stats-cards">
+  <ion-card>
+    <ion-card-content>
+      <h3>Total de Usuários</h3>
+      <p>{{ total }}</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <h3>Usuário Logado</h3>
+      <p>
+        {{ currentUser?.name }}<br /><small>{{ currentUser?.email }}</small>
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <h3>Autenticação</h3>
+      <p>JWT Ativo</p>
+    </ion-card-content>
+  </ion-card>
+</div>
