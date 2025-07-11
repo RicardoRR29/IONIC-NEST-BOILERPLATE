@@ -7,6 +7,14 @@ import { AuthModule } from '../src/infrastructure/modules/auth.module';
 import { UsersModule } from '../src/infrastructure/modules/users.module';
 import { User } from '../src/domain/entities/user.entity';
 
+interface RegisterResponse {
+  id: number;
+}
+
+interface LoginResponse {
+  access_token: string;
+}
+
 describe('Users API (e2e)', () => {
   let app: INestApplication;
   let token: string;
@@ -35,12 +43,14 @@ describe('Users API (e2e)', () => {
     const regRes = await request(app.getHttpServer())
       .post('/auth/register')
       .send({ name: 'Dave', email: 'dave@example.com', password: 'Pass@123' });
-    userId = regRes.body.id;
+    const regBody = regRes.body as RegisterResponse;
+    userId = regBody.id;
 
     const loginRes = await request(app.getHttpServer())
       .post('/auth/login')
       .send({ email: 'dave@example.com', password: 'Pass@123' });
-    token = loginRes.body.access_token;
+    const loginBody = loginRes.body as LoginResponse;
+    token = loginBody.access_token;
   });
 
   afterAll(async () => {
@@ -52,8 +62,9 @@ describe('Users API (e2e)', () => {
       .get('/users')
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
-    expect(Array.isArray(res.body)).toBe(true);
-    expect(res.body.length).toBeGreaterThan(0);
+    const list = res.body as unknown[];
+    expect(Array.isArray(list)).toBe(true);
+    expect(list.length).toBeGreaterThan(0);
   });
 
   it('fetches a user by id', async () => {
@@ -61,7 +72,8 @@ describe('Users API (e2e)', () => {
       .get(`/users/${userId}`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
-    expect(res.body).toEqual(expect.objectContaining({ id: userId }));
+    const body = res.body as { id: number };
+    expect(body).toEqual(expect.objectContaining({ id: userId }));
   });
 
   it('updates a user', async () => {
@@ -70,7 +82,8 @@ describe('Users API (e2e)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({ name: 'Updated' })
       .expect(200);
-    expect(res.body).toEqual(
+    const body = res.body as { id: number; name: string };
+    expect(body).toEqual(
       expect.objectContaining({ id: userId, name: 'Updated' }),
     );
   });

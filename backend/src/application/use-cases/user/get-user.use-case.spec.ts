@@ -2,14 +2,30 @@ import { GetUserUseCase } from './get-user.use-case';
 import { IUserRepository } from '../../../domain/repositories/user.repository';
 import { AppException } from '../../../shared/exceptions/app.exception';
 
-const user = { id: 1 } as any;
+import { User } from '../../../domain/entities/user.entity';
+
+const user: User = {
+  id: 1,
+  name: 'Test',
+  email: 'test@example.com',
+  password: 'secret',
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
 
 describe('GetUserUseCase', () => {
   let repo: jest.Mocked<IUserRepository>;
   let useCase: GetUserUseCase;
 
   beforeEach(() => {
-    repo = { findOne: jest.fn() } as any;
+    repo = {
+      create: jest.fn(),
+      findAll: jest.fn(),
+      findOne: jest.fn(),
+      findByEmail: jest.fn(),
+      update: jest.fn(),
+      remove: jest.fn(),
+    } as jest.Mocked<IUserRepository>;
     useCase = new GetUserUseCase(repo);
   });
 
