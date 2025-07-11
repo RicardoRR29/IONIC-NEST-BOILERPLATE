@@ -11,11 +11,11 @@ import {
   IonBadge,
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
-import { UserService, User } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
-import { UiService } from '../services/ui.service';
 import { AddUserModalComponent } from './components/add-user/add-user-modal.component';
 import { HeaderComponent } from '../shared/header/header.component';
+import { User, UserService } from './services/user.service';
+import { UiService } from '../core/services/ui.service';
 
 @Component({
   selector: 'app-users',
