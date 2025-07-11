@@ -12,6 +12,8 @@ import { UiService } from '../../../core/services/ui.service';
 
 @Component({
   selector: 'app-edit-user-modal',
+  standalone: true,
+  imports: [IonicModule, CommonModule, ReactiveFormsModule],
   templateUrl: './edit-user-modal.component.html',
   styleUrls: ['./edit-user-modal.component.scss'],
 })

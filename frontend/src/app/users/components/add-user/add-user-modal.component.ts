@@ -13,6 +13,8 @@ import { UiService } from '../../../core/services/ui.service';
 
 @Component({
   selector: 'app-add-user-modal',
+  standalone: true,
+  imports: [IonicModule, CommonModule, ReactiveFormsModule],
   templateUrl: './add-user-modal.component.html',
   styleUrls: ['./add-user-modal.component.scss'],
 })
