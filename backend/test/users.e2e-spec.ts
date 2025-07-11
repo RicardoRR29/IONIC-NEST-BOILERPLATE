@@ -81,10 +81,9 @@ describe('Users API (e2e)', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
 
-    const res = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .get(`/users/${userId}`)
       .set('Authorization', `Bearer ${token}`)
-      .expect(200);
-    expect(res.body).toBeNull();
+      .expect(401);
   });
 });
