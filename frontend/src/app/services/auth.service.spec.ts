@@ -28,7 +28,7 @@ describe('AuthService', () => {
   });
 
   it('should register user', async () => {
-    const promise = service.register('name', 'e@e.com', '123456');
+    const promise = service.register('name', 'e@e.com', 'Pass@123');
     const req = http.expectOne(`${base}/auth/register`);
     expect(req.request.method).toBe('POST');
     req.flush({});

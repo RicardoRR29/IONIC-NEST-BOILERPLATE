@@ -32,7 +32,7 @@ describe('AuthPage', () => {
   });
 
   it('should submit login form', async () => {
-    component.form.setValue({ name: '', email: 'e@e.com', password: '123456' });
+    component.form.setValue({ name: '', email: 'e@e.com', password: 'Pass@123' });
     await component.submit();
     expect(auth.login).toHaveBeenCalled();
   });
