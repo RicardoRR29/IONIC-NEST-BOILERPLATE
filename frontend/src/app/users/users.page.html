@@ -8,28 +8,7 @@
     </div>
 
     <!-- Cards de Resumo -->
-    <div class="stats-cards">
-      <ion-card>
-        <ion-card-content>
-          <h3>Total de Usuários</h3>
-          <p>{{ users.length }}</p>
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <ion-card-content>
-          <h3>Usuário Logado</h3>
-          <p>
-            {{ currentUser?.name }}<br /><small>{{ currentUser?.email }}</small>
-          </p>
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <ion-card-content>
-          <h3>Autenticação</h3>
-          <p>JWT Ativo</p>
-        </ion-card-content>
-      </ion-card>
-    </div>
+    <app-user-stats [total]="users.length" [currentUser]="currentUser"></app-user-stats>
 
     <!-- Ações -->
     <div class="actions-bar">
@@ -46,50 +25,12 @@
     </div>
 
     <!-- Tabela -->
-    <ion-card class="table-wrapper">
-      <ion-card-content>
-        <table class="user-table">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Email</th>
-              <th class="table-actions-buttons-header">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of filteredUsers()">
-              <td>
-                {{ user.name }}
-                <ion-badge
-                  *ngIf="user.email === currentUser?.email"
-                  color="primary"
-                  >Você</ion-badge
-                >
-              </td>
-              <td>{{ user.email }}</td>
-              <td class="table-actions-buttons">
-                <ion-button
-                  fill="clear"
-                  size="small"
-                  color="primary"
-                  (click)="editUser(user)"
-                >
-                  <ion-icon name="create-outline" slot="icon-only"></ion-icon>
-                </ion-button>
-                <ion-button
-                  fill="clear"
-                  size="small"
-                  color="danger"
-                  (click)="deleteUser(user)"
-                >
-                  <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
-                </ion-button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </ion-card-content>
-    </ion-card>
+    <app-users-table
+      [users]="filteredUsers()"
+      [currentUser]="currentUser"
+      (edit)="editUser($event)"
+      (delete)="deleteUser($event)"
+    ></app-users-table>
 
     <!-- Modais -->
     <app-add-user-modal
@@ -97,5 +38,6 @@
       (userCreated)="userAdded($event)"
       (userUpdated)="userUpdated($event)"
     ></app-add-user-modal>
+    <app-confirm-modal #confirmModal></app-confirm-modal>
   </div>
 </ion-content>

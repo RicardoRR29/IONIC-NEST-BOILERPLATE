@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersPage } from './users.page';
 import { AddUserModalComponent } from './components/add-user/add-user-modal.component';
+import { ConfirmModalComponent } from '../shared/confirm-modal/confirm-modal.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { AddUserModalComponent } from './components/add-user/add-user-modal.comp
     UsersRoutingModule,
     UsersPage,
     AddUserModalComponent,
+    ConfirmModalComponent,
   ],
 })
 export class UsersModule {}
