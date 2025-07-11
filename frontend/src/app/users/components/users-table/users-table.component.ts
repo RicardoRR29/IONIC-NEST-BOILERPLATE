@@ -16,4 +16,9 @@ export class UsersTableComponent {
   @Input() currentUser: User | null = null;
   @Output() edit = new EventEmitter<User>();
   @Output() delete = new EventEmitter<User>();
+
+  columns = [
+    { header: 'Nome', field: 'name' },
+    { header: 'Email', field: 'email' },
+  ];
 }
