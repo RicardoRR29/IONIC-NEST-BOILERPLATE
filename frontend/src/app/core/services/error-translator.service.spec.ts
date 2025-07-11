@@ -14,6 +14,8 @@ describe('ErrorTranslatorService', () => {
   });
 
   it('should fallback for unknown', () => {
-    expect(service.translate('UNKNOWN')).toBe('Algo deu errado. Tente novamente.');
+    expect(service.translate('UNKNOWN')).toBe(
+      'Algo deu errado. Tente novamente.'
+    );
   });
 });
