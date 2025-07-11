@@ -16,7 +16,6 @@
   gap: 2rem;
 }
 
-
 /* ===============================
    Header Visual
 ================================== */
@@ -88,17 +87,21 @@
   justify-content: space-between;
   align-items: center;
 
-  input {
-    background-color: red;
-    --background: red;
-  }
   .user-search {
     flex: 1;
     padding: 0;
+    --background: white;
+  }
+  .searchbar-input-container {
+    --border-radius: 20px;
+  }
+  .searchbar-input {
+    border-radius: 20px;
+    --border-radius: 20px;
   }
 
-// not .searchbar-input-container 
-//not .searchbar-input
+  // not
+  //not .searchbar-input
   ion-button {
     height: 44px;
     font-weight: 600;
