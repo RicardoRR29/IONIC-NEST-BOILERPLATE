@@ -1,27 +1,29 @@
-C:.
-├───app
-│   ├───auth
-│   │   ├───guards
-│   │   ├───pages
-│   │   │   ├───login
-│   │   │   └───register
-│   │   └───services
-│   ├───core
-│   │   ├───interceptors
-│   │   └───services
-│   ├───shared
-│   └───users
-│       ├───components
-│       │   ├───add-user
-│       │   └───edit-user-modal
-│       ├───pages
-│       └───services
-├───assets
-│   └───icon
-├───environments
-└───theme
+O projeto backend já está em funcionamento e segue a arquitetura em camadas do NestJS.
+A estrutura principal localiza-se em `src/` e está organizada conforme abaixo:
 
-segue uma explicação detalhada explicando o propósito de cada item da estrutura e como ele se encaixa nos conceitos da Clean Architecture, SOLID, segurança e escalabilidade:
+src
+├── application
+│   ├── dto
+│   └── use-cases
+│       ├── auth
+│       └── user
+├── domain
+│   ├── entities
+│   ├── repositories
+│   └── services
+├── infrastructure
+│   ├── database
+│   │   └── postgres
+│   ├── modules
+│   └── services
+├── interface
+│   └── http
+│       ├── controllers
+│       ├── guards
+│       └── interceptors
+└── shared
+    └── exceptions
+
 
 📁 application/
 Esta pasta representa a camada de aplicação, onde residem os casos de uso da aplicação (application services). Ela é responsável por orquestrar a lógica entre o domínio e a infraestrutura. Ela conhece o domínio, mas não depende da infraestrutura. Essa camada é o coração da lógica de negócio aplicada. Tudo aqui pode ser testado sem nenhuma dependência externa.
