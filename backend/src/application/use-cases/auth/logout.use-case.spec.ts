@@ -8,8 +8,11 @@ describe('LogoutUseCase', () => {
       add: jest.fn(),
       has: jest.fn(),
     };
-    const useCase = new LogoutUseCase(blacklist, new JwtService({ secret: 't' }));
+    const useCase = new LogoutUseCase(
+      blacklist,
+      new JwtService({ secret: 't' }),
+    );
     useCase.execute('token');
-    expect(blacklist.add).toHaveBeenCalled();
+    expect(blacklist.add.bind(blacklist)).toHaveBeenCalled();
   });
 });
