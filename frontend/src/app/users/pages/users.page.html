@@ -1,70 +1,43 @@
-<!-- src/app/users/users.page.html -->
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Users</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="logout()">
-        <ion-icon slot="start" name="log-out-outline"></ion-icon>
-        Logout
+<ion-content class="users-wrapper" fullscreen>
+  <app-header></app-header>
+  <div class="users-container">
+    <!-- Cabeçalho -->
+    <div class="header-section">
+      <h1 class="text-title-xl">Gerenciamento de Usuários</h1>
+      <p class="text-muted">Sistema de autenticação seguro com JWT</p>
+    </div>
+
+    <!-- Cards de Resumo -->
+    <app-user-stats [total]="users.length" [currentUser]="currentUser"></app-user-stats>
+
+    <!-- Ações -->
+    <div class="actions-bar">
+      <ion-searchbar
+        [(ngModel)]="search"
+        placeholder="Buscar por nome ou email..."
+        class="user-search"
+      ></ion-searchbar>
+
+      <ion-button (click)="addUser()" class="btn-primary" shape="round">
+        <ion-icon slot="start" name="person-add-outline"></ion-icon>
+        Novo Usuário
       </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+    </div>
 
-<ion-content class="ion-padding">
-  <!-- Search & Add -->
-  <ion-grid>
-    <ion-row class="ion-justify-content-end">
-      <ion-col size="3">
-        <ion-button expand="block" color="primary" (click)="addUser()">
-          <ion-icon slot="start" name="add-outline"></ion-icon>
-          Add User
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <!-- Tabela -->
+    <app-users-table
+      [users]="filteredUsers()"
+      [currentUser]="currentUser"
+      (edit)="editUser($event)"
+      (delete)="deleteUser($event)"
+    ></app-users-table>
 
-  <!-- Users Table -->
-  <div class="table-container">
-    <table class="user-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th class="actions-header">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td class="actions">
-            <ion-button
-              fill="clear"
-              shape="round"
-              color="primary"
-              (click)="editUser(user)"
-            >
-              Edit
-            </ion-button>
-            <ion-button
-              fill="clear"
-              shape="round"
-              color="danger"
-              (click)="deleteUser(user)"
-            >
-              Delete
-            </ion-button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Modais -->
+    <app-add-user-modal
+      #addModal
+      (userCreated)="userAdded($event)"
+      (userUpdated)="userUpdated($event)"
+    ></app-add-user-modal>
+    <app-confirm-modal #confirmModal></app-confirm-modal>
   </div>
-
-  <app-add-user-modal
-    #addModal
-    (userCreated)="userAdded($event)"
-    (userUpdated)="userUpdated($event)"
-  ></app-add-user-modal>
-  <app-confirm-modal #confirmModal></app-confirm-modal>
 </ion-content>
