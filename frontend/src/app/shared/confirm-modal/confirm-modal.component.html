@@ -1,0 +1,29 @@
+<ion-modal
+  [isOpen]="isOpen"
+  (didDismiss)="close(false)"
+  cssClass="auto-height-modal"
+>
+  <ng-template>
+    <ion-card class="modal-card">
+      <ion-card-header>
+        <ion-card-title>Confirmação</ion-card-title>
+        <ion-buttons slot="end">
+          <ion-button fill="clear" (click)="close(false)">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="message">{{ message }}</p>
+        <div class="actions">
+          <ion-button expand="block" fill="solid" color="primary" (click)="close(true)">
+            Confirmar
+          </ion-button>
+          <ion-button expand="block" fill="outline" color="medium" (click)="close(false)">
+            Cancelar
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-modal>
