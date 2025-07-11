@@ -74,7 +74,7 @@ export class AddUserModalComponent {
           this.form.value.email!,
         );
         this.userUpdated.emit(updated);
-        this.ui.toast('User updated', 'success');
+        this.ui.toast('Usuário atualizado', 'success');
       } else {
         const user = await this.userService.create(
           this.form.value.name!,
@@ -82,7 +82,7 @@ export class AddUserModalComponent {
           this.form.value.password!,
         );
         this.userCreated.emit(user);
-        this.ui.toast('User created', 'success');
+        this.ui.toast('Usuário criado', 'success');
       }
       this.close();
     } catch {
