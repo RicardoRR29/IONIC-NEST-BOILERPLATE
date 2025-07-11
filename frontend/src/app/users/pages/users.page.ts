@@ -14,7 +14,6 @@ import {
   IonCol,
 } from '@ionic/angular';
 import { AddUserModalComponent } from '../components/add-user/add-user-modal.component';
-import { EditUserModalComponent } from '../components/edit-user-modal/edit-user-modal.component';
 import { UserService, User } from '../services/user.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { UiService } from '../../core/services/ui.service';
@@ -27,7 +26,6 @@ import { UiService } from '../../core/services/ui.service';
 export class UsersPage implements OnInit {
   users: User[] = [];
   @ViewChild(AddUserModalComponent) addModal!: AddUserModalComponent;
-  @ViewChild(EditUserModalComponent) editModal!: EditUserModalComponent;
 
   constructor(
     private userService: UserService,
@@ -57,7 +55,7 @@ export class UsersPage implements OnInit {
   }
 
   editUser(user: User) {
-    this.editModal.open(user);
+    this.addModal.open(user);
   }
 
   userUpdated(updated: User) {
