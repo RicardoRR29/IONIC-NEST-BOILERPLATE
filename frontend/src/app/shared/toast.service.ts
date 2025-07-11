@@ -10,7 +10,7 @@ export class ToastService {
       message,
       duration: 3000,
       color: 'danger',
-      position: 'top',
+      position: 'bottom',
     });
     toast.present();
   }
@@ -20,7 +20,7 @@ export class ToastService {
       message,
       duration: 2000,
       color: 'success',
-      position: 'top',
+      position: 'bottom',
     });
     toast.present();
   }
