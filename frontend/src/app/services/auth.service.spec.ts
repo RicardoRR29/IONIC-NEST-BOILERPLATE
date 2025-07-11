@@ -20,16 +20,19 @@ describe('AuthService', () => {
 
   it('should login and store token', async () => {
     const token = 'jwt.token';
-    service.login('test@example.com', 'pass').then();
+    const promise = service.login('test@example.com', 'pass');
     const req = http.expectOne(`${base}/auth/login`);
     req.flush({ access_token: token });
+    await promise;
     expect(localStorage.getItem('token')).toBe(token);
   });
 
   it('should register user', async () => {
-    service.register('name', 'e@e.com', '123456').then();
+    const promise = service.register('name', 'e@e.com', '123456');
     const req = http.expectOne(`${base}/auth/register`);
     expect(req.request.method).toBe('POST');
+    req.flush({});
+    await promise;
   });
 
   it('should detect logged in status', () => {

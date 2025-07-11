@@ -32,7 +32,7 @@ describe('AddUserModalComponent', () => {
   });
 
   it('should create new user', async () => {
-    component.form.setValue({ name: 'n', email: 'e', password: '123456' });
+    component.form.setValue({ name: 'n', email: 'e@e.com', password: '123456' });
     await component.save();
     expect(userService.create).toHaveBeenCalled();
   });
