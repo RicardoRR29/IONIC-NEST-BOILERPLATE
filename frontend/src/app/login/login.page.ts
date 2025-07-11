@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   IonicModule,
   NavController,
@@ -24,7 +24,7 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
   form: FormGroup;
   show = false;
 
@@ -38,6 +38,12 @@ export class LoginPage {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+  }
+
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.navCtrl.navigateRoot('/users');
+    }
   }
 
   async login() {
