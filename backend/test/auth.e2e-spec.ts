@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import * as request from 'supertest';
+import { Server } from 'http';
 import { AuthModule } from '../src/infrastructure/modules/auth.module';
 import { UsersModule } from '../src/infrastructure/modules/users.module';
 import { User } from '../src/domain/entities/user.entity';
@@ -24,6 +25,7 @@ interface ProfileResponse {
 
 describe('Auth API (e2e)', () => {
   let app: INestApplication;
+  let httpServer: Server;
 
   beforeAll(async () => {
     process.env.JWT_SECRET = 'testsecret';
@@ -45,6 +47,7 @@ describe('Auth API (e2e)', () => {
     app = moduleFixture.createNestApplication();
     app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
     await app.init();
+    httpServer = app.getHttpServer();
   });
 
   afterAll(async () => {
@@ -52,7 +55,7 @@ describe('Auth API (e2e)', () => {
   });
 
   it('registers a user', async () => {
-    const response = await request(app.getHttpServer())
+    const response = await request(httpServer)
       .post('/auth/register')
       .send({ name: 'Alice', email: 'alice@example.com', password: 'Pass@123' })
       .expect(201);
@@ -65,11 +68,11 @@ describe('Auth API (e2e)', () => {
   });
 
   it('logs in and returns a token', async () => {
-    await request(app.getHttpServer())
+    await request(httpServer)
       .post('/auth/register')
       .send({ name: 'Bob', email: 'bob@example.com', password: 'Pass@123' });
 
-    const response = await request(app.getHttpServer())
+    const response = await request(httpServer)
       .post('/auth/login')
       .send({ email: 'bob@example.com', password: 'Pass@123' })
       .expect(201);
@@ -79,13 +82,13 @@ describe('Auth API (e2e)', () => {
   });
 
   it('returns profile data for a valid token', async () => {
-    await request(app.getHttpServer()).post('/auth/register').send({
+    await request(httpServer).post('/auth/register').send({
       name: 'Carol',
       email: 'carol@example.com',
       password: 'Pass@123',
     });
 
-    const loginResponse = await request(app.getHttpServer())
+    const loginResponse = await request(httpServer)
       .post('/auth/login')
       .send({ email: 'carol@example.com', password: 'Pass@123' })
       .expect(201);
@@ -93,7 +96,7 @@ describe('Auth API (e2e)', () => {
     const loginBody = loginResponse.body as LoginResponse;
     const token: string = loginBody.access_token;
 
-    const profileResponse = await request(app.getHttpServer())
+    const profileResponse = await request(httpServer)
       .post('/auth/profile')
       .set('Authorization', `Bearer ${token}`)
       .expect(201);
