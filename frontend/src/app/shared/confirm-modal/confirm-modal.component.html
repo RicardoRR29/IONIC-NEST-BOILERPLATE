@@ -16,11 +16,21 @@
       <ion-card-content>
         <p class="message">{{ message }}</p>
         <div class="actions">
-          <ion-button expand="block" fill="solid" color="primary" (click)="close(true)">
-            Confirmar
-          </ion-button>
-          <ion-button expand="block" fill="outline" color="medium" (click)="close(false)">
+          <ion-button
+            expand="block"
+            fill="outline"
+            color="medium"
+            (click)="close(false)"
+          >
             Cancelar
+          </ion-button>
+          <ion-button
+            expand="block"
+            fill="solid"
+            color="primary"
+            (click)="close(true)"
+          >
+            Confirmar
           </ion-button>
         </div>
       </ion-card-content>

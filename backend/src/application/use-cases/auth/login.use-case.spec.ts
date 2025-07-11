@@ -5,7 +5,17 @@ import { JwtService } from '@nestjs/jwt';
 import { AppException } from '../../../shared/exceptions/app.exception';
 
 const dto = { email: 'bob@test.com', password: 'pass' };
-const user = { id: 1, email: 'bob@test.com', password: 'hashed' } as any;
+
+import { User } from '../../../domain/entities/user.entity';
+
+const user: User = {
+  id: 1,
+  email: 'bob@test.com',
+  password: 'hashed',
+  name: 'Bob',
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
 
 describe('LoginUseCase', () => {
   let repo: jest.Mocked<IUserRepository>;
@@ -13,9 +23,25 @@ describe('LoginUseCase', () => {
   let useCase: LoginUseCase;
 
   beforeEach(() => {
-    repo = { findByEmail: jest.fn() } as any;
-    crypto = { compare: jest.fn() } as any;
-    useCase = new LoginUseCase(repo, crypto, new JwtService({ secret: 'test' }));
+    repo = {
+      findByEmail: jest.fn(),
+      create: jest.fn(),
+      findAll: jest.fn(),
+      findOne: jest.fn(),
+      update: jest.fn(),
+      remove: jest.fn(),
+    } as jest.Mocked<IUserRepository>;
+
+    crypto = {
+      hash: jest.fn(),
+      compare: jest.fn(),
+    } as jest.Mocked<ICryptoService>;
+
+    useCase = new LoginUseCase(
+      repo,
+      crypto,
+      new JwtService({ secret: 'test' }),
+    );
   });
 
   it('returns a token for valid credentials', async () => {
