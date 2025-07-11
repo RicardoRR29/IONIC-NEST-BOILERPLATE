@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  IonicModule,
-  NavController,
-  LoadingController,
-} from '@ionic/angular';
+import { IonicModule, NavController, LoadingController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -16,11 +12,7 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    IonicModule,
-    CommonModule,
-    ReactiveFormsModule
-  ],
+  imports: [IonicModule, CommonModule, ReactiveFormsModule],
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
@@ -32,7 +24,7 @@ export class LoginPage implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private navCtrl: NavController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -52,7 +44,10 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    const loading = await this.loadingCtrl.create({ message: 'Logging in…' });
+    const loading = await this.loadingCtrl.create({
+      message: 'Logging in…',
+      cssClass: 'loading-toast',
+    });
     await loading.present();
 
     const { email, password } = this.form.value;
