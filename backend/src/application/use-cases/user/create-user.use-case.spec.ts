@@ -31,15 +31,16 @@ describe('CreateUserUseCase', () => {
   it('creates a user when email is new', async () => {
     repo.findByEmail.mockResolvedValue(null);
     crypto.hash.mockResolvedValue('hashed');
-    repo.create.mockImplementation(async (u) => ({
-      id: 1,
-      name: u.name as string,
-      email: u.email as string,
-      password: u.password as string,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }));
-
+    repo.create.mockImplementation((u) =>
+      Promise.resolve({
+        id: 1,
+        name: u.name as string,
+        email: u.email as string,
+        password: u.password as string,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
+    );
     const result = await useCase.execute(dto);
     expect(result).toEqual(
       expect.objectContaining({ id: 1, password: 'hashed' }),
