@@ -7,13 +7,22 @@ describe('DeleteUserUseCase', () => {
   let useCase: DeleteUserUseCase;
 
   beforeEach(() => {
-    repo = { remove: jest.fn() } as any;
+    repo = {
+      create: jest.fn(),
+      findAll: jest.fn(),
+      findOne: jest.fn(),
+      findByEmail: jest.fn(),
+      update: jest.fn(),
+      remove: jest.fn(),
+    } as jest.Mocked<IUserRepository>;
+
     useCase = new DeleteUserUseCase(repo);
   });
 
   it('removes a user', async () => {
     repo.remove.mockResolvedValue(undefined);
     await expect(useCase.execute(1)).resolves.toBeUndefined();
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(repo.remove).toHaveBeenCalledWith(1);
   });
 

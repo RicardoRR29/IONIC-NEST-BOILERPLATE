@@ -7,7 +7,7 @@ describe('JwtTokenService', () => {
 
   it('signs and verifies payloads', () => {
     const token = service.sign({ foo: 'bar' });
-    const payload = service.verify(token) as any;
+    const payload = service.verify(token) as { foo: string };
     expect(payload.foo).toBe('bar');
   });
 });
