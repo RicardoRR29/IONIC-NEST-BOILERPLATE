@@ -16,6 +16,7 @@ import { AuthService } from '../services/auth.service';
 import { UiService } from '../services/ui.service';
 import { EditUserModalComponent } from './components/edit-user-modal/edit-user-modal.component';
 import { AddUserModalComponent } from './components/add-user/add-user-modal.component';
+import { HeaderComponent } from '../shared/header/header.component';
 
 @Component({
   selector: 'app-users',
@@ -32,6 +33,7 @@ import { AddUserModalComponent } from './components/add-user/add-user-modal.comp
     IonCard,
     IonCardContent,
     IonBadge,
+    HeaderComponent,
     AddUserModalComponent,
     EditUserModalComponent,
   ],
