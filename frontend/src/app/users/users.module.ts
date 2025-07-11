@@ -13,7 +13,6 @@ import { AddUserModalComponent } from './components/add-user/add-user-modal.comp
     FormsModule,
     ReactiveFormsModule,
     UsersRoutingModule,
-    UsersPage,
     AddUserModalComponent,
   ],
 })
