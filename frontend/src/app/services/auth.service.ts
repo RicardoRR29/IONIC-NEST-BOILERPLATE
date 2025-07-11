@@ -26,8 +26,22 @@ export class AuthService {
     );
   }
 
-  logout() {
+  async logout(): Promise<void> {
+    const token = this.token;
     localStorage.removeItem('token');
+    if (token) {
+      try {
+        await firstValueFrom(
+          this.http.post(
+            `${this.base}/auth/logout`,
+            {},
+            { headers: { Authorization: `Bearer ${token}` } }
+          )
+        );
+      } catch {
+        // ignore errors
+      }
+    }
   }
 
   get token(): string | null {

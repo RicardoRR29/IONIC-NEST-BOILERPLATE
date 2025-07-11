@@ -35,6 +35,16 @@ describe('AuthService', () => {
     await promise;
   });
 
+  it('should logout and call backend', async () => {
+    localStorage.setItem('token', 'token');
+    const promise = service.logout();
+    const req = http.expectOne(`${base}/auth/logout`);
+    expect(req.request.method).toBe('POST');
+    req.flush({});
+    await promise;
+    expect(localStorage.getItem('token')).toBeNull();
+  });
+
   it('should detect logged in status', () => {
     const exp = Math.floor(Date.now() / 1000) + 60;
     const token = `a.${btoa(JSON.stringify({ sub: 1, exp }))}.c`;
