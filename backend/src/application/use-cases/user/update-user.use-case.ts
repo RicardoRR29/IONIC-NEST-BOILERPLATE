@@ -14,7 +14,7 @@ export class UpdateUserUseCase {
   async execute(id: number, dto: UpdateUserDto): Promise<User> {
     try {
       return await this.usersRepo.update(id, dto);
-    } catch (err) {
+    } catch {
       throw new AppException(
         ErrorCodes.USER.UPDATE_FAILED.code,
         ErrorCodes.USER.UPDATE_FAILED.message,

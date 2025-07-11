@@ -11,11 +11,12 @@
   border-radius: var(--ion-card-border-radius);
   box-shadow: var(--ion-card-box-shadow);
 
-  ion-searchbar {
-    --background: #ffffff;
-    --border-radius: 0.5rem;
-    --placeholder-color: var(--ion-color-medium);
-  }
+}
+ion-searchbar {
+  --background: red;
+  --border-radius: 0.5rem;
+  --placeholder-color: var(--ion-color-medium);
+  background: red;
 }
 
 .table-container {

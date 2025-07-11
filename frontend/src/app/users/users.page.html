@@ -51,7 +51,7 @@
             <tr>
               <th>Nome</th>
               <th>Email</th>
-              <th>Ações</th>
+              <th style="width: 1%; ">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +61,7 @@
                 <ion-badge *ngIf="user.email === currentUser?.email" color="primary">Você</ion-badge>
               </td>
               <td>{{ user.email }}</td>
-              <td>
+                <td class="tableactions-buttons" >
                 <ion-button
                   fill="clear"
                   size="small"
@@ -78,7 +78,7 @@
                 >
                   <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
                 </ion-button>
-              </td>
+                </td>
             </tr>
           </tbody>
         </table>
