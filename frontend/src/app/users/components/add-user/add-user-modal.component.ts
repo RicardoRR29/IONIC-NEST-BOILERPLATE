@@ -1,4 +1,3 @@
-// src/app/add-user/add-user-modal.component.ts
 import { Component, EventEmitter, Output } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -20,7 +19,11 @@ import { UiService } from '../../../core/services/ui.service';
 })
 export class AddUserModalComponent {
   @Output() userCreated = new EventEmitter<User>();
+  @Output() userUpdated = new EventEmitter<User>();
+
   isOpen = false;
+  editing = false;
+  private currentUser: User | null = null;
   form: FormGroup;
 
   constructor(
@@ -35,8 +38,22 @@ export class AddUserModalComponent {
     });
   }
 
-  open() {
+  open(user?: User) {
     this.isOpen = true;
+    if (user) {
+      this.editing = true;
+      this.currentUser = user;
+      this.form.patchValue({ name: user.name, email: user.email, password: '' });
+      this.form.get('password')?.disable();
+      this.form.get('password')?.clearValidators();
+    } else {
+      this.editing = false;
+      this.currentUser = null;
+      this.form.reset();
+      this.form.get('password')?.enable();
+      this.form.get('password')?.setValidators([Validators.required, Validators.minLength(6)]);
+    }
+    this.form.updateValueAndValidity();
   }
 
   close() {
@@ -50,13 +67,23 @@ export class AddUserModalComponent {
       return;
     }
     try {
-      const user = await this.userService.create(
-        this.form.value.name!,
-        this.form.value.email!,
-        this.form.value.password!,
-      );
-      this.userCreated.emit(user);
-      this.ui.toast('User created', 'success');
+      if (this.editing && this.currentUser) {
+        const updated = await this.userService.update(
+          this.currentUser.id,
+          this.form.value.name!,
+          this.form.value.email!,
+        );
+        this.userUpdated.emit(updated);
+        this.ui.toast('User updated', 'success');
+      } else {
+        const user = await this.userService.create(
+          this.form.value.name!,
+          this.form.value.email!,
+          this.form.value.password!,
+        );
+        this.userCreated.emit(user);
+        this.ui.toast('User created', 'success');
+      }
       this.close();
     } catch {
       // error handled globally

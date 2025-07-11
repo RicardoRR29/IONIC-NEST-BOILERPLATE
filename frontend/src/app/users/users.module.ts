@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersPage } from './users.page';
 import { AddUserModalComponent } from './components/add-user/add-user-modal.component';
-import { EditUserModalComponent } from './components/edit-user-modal/edit-user-modal.component';
 
 @NgModule({
   imports: [
@@ -16,7 +15,6 @@ import { EditUserModalComponent } from './components/edit-user-modal/edit-user-m
     UsersRoutingModule,
     UsersPage,
     AddUserModalComponent,
-    EditUserModalComponent,
   ],
 })
 export class UsersModule {}

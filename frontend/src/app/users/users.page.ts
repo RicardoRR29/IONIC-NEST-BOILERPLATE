@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 import { UserService, User } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { UiService } from '../services/ui.service';
-import { EditUserModalComponent } from './components/edit-user-modal/edit-user-modal.component';
 import { AddUserModalComponent } from './components/add-user/add-user-modal.component';
 
 @Component({
@@ -33,7 +32,6 @@ import { AddUserModalComponent } from './components/add-user/add-user-modal.comp
     IonCardContent,
     IonBadge,
     AddUserModalComponent,
-    EditUserModalComponent,
   ],
 })
 export class UsersPage implements OnInit {
@@ -42,7 +40,6 @@ export class UsersPage implements OnInit {
   currentUser: User | null = null;
 
   @ViewChild(AddUserModalComponent) addModal!: AddUserModalComponent;
-  @ViewChild(EditUserModalComponent) editModal!: EditUserModalComponent;
 
   constructor(
     private userService: UserService,
@@ -86,7 +83,7 @@ export class UsersPage implements OnInit {
   }
 
   editUser(user: User) {
-    this.editModal.open(user);
+    this.addModal.open(user);
   }
 
   userUpdated(updated: User) {
