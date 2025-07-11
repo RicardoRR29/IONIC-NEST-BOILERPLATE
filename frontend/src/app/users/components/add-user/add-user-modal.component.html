@@ -1,56 +1,64 @@
 <ion-modal
-  class="ion-modal"
   [isOpen]="isOpen"
   (didDismiss)="close()"
   cssClass="auto-height-modal"
 >
   <ng-template>
-    <ion-card-header>
-      <ion-card-title>{{ editing ? "Edit User" : "Add User" }}</ion-card-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="close()" fill="clear">
-          <ion-icon name="close-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-card-header>
+    <ion-card class="modal-card">
+      <!-- Cabeçalho -->
+      <ion-card-header>
+        <ion-card-title>
+          {{ editing ? "Editar Usuário" : "Novo Usuário" }}
+        </ion-card-title>
+        <ion-buttons slot="end">
+          <ion-button fill="clear" (click)="close()">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-card-header>
 
-    <ion-card-content>
-      <form [formGroup]="form" (ngSubmit)="save()">
-        <ion-item>
-          <ion-input
-            formControlName="name"
-            label="Name"
-            labelPlacement="floating"
-          ></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input
-            formControlName="email"
-            label="Email"
-            labelPlacement="floating"
-            type="email"
-            autocomplete="off"
-          ></ion-input>
-        </ion-item>
-        <ion-item *ngIf="!editing">
-          <ion-input
-            formControlName="password"
-            label="Password"
-            labelPlacement="floating"
-            type="password"
-            autocomplete="off"
-          ></ion-input>
-        </ion-item>
-        <ion-button
-          expand="block"
-          fill="solid"
-          color="primary"
-          class="save-button"
-          type="submit"
-        >
-          Save
-        </ion-button>
-      </form>
-    </ion-card-content>
+      <!-- Formulário -->
+      <ion-card-content>
+        <form [formGroup]="form" (ngSubmit)="save()" class="form-wrapper">
+          <ion-item lines="none">
+            <ion-input
+              formControlName="name"
+              label="Nome"
+              labelPlacement="floating"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-input
+              formControlName="email"
+              label="Email"
+              labelPlacement="floating"
+              type="email"
+              autocomplete="off"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item lines="none" *ngIf="!editing">
+            <ion-input
+              formControlName="password"
+              label="Senha"
+              labelPlacement="floating"
+              type="password"
+              autocomplete="off"
+            ></ion-input>
+          </ion-item>
+
+          <ion-button
+            expand="block"
+            fill="solid"
+            color="primary"
+            class="save-button"
+            type="submit"
+          >
+            Salvar
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
   </ng-template>
 </ion-modal>
