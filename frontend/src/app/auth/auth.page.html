@@ -10,13 +10,13 @@
 
     <ion-card class="auth-card">
       <div class="card-header">
-        <ion-icon name="person-add-outline" class="form-icon"></ion-icon>
-        <h2>Cadastro</h2>
-        <p>Crie sua conta no sistema</p>
+        <ion-icon [name]="mode === 'login' ? 'business-outline' : 'person-add-outline'" class="form-icon"></ion-icon>
+        <h2>{{ mode === 'login' ? 'Login' : 'Cadastro' }}</h2>
+        <p>{{ mode === 'login' ? 'Digite suas credenciais para acessar o sistema' : 'Crie sua conta no sistema' }}</p>
       </div>
 
-      <form [formGroup]="form" (ngSubmit)="register()" class="form-body">
-        <ion-item lines="full">
+      <form [formGroup]="form" (ngSubmit)="submit()" class="form-body">
+        <ion-item *ngIf="mode === 'register'" lines="full">
           <ion-icon slot="start" name="person-outline"></ion-icon>
           <ion-input
             formControlName="name"
@@ -32,6 +32,8 @@
             label="Email"
             labelPlacement="floating"
             type="email"
+            autocomplete="email"
+            required
           ></ion-input>
         </ion-item>
 
@@ -39,20 +41,25 @@
           <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
           <ion-input
             formControlName="password"
-            label="Password"
+            label="Senha"
             labelPlacement="floating"
-            type="password"
+            [type]="show ? 'text' : 'password'"
+            autocomplete="current-password"
+            required
           ></ion-input>
+          <ion-button *ngIf="mode === 'login'" fill="clear" size="small" slot="end" type="button" (click)="show = !show">
+            <ion-icon [name]="show ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+          </ion-button>
         </ion-item>
 
         <ion-button expand="block" class="btn-primary" type="submit">
-          Register
+          {{ mode === 'login' ? 'Entrar' : 'Register' }}
         </ion-button>
       </form>
 
       <p class="register-link">
-        Já tem uma conta?
-        <a (click)="goToLogin()">Voltar ao login</a>
+        {{ mode === 'login' ? 'Não tem uma conta?' : 'Já tem uma conta?' }}
+        <a (click)="toggleMode()">{{ mode === 'login' ? 'Cadastre-se aqui' : 'Voltar ao login' }}</a>
       </p>
     </ion-card>
   </div>
