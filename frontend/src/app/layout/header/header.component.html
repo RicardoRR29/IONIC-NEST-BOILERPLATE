@@ -1,0 +1,11 @@
+<ion-toolbar>
+  <ion-title>
+    <h1 class="text-title-xl">{{ title }}</h1>
+    <p class="text-muted" *ngIf="subtitle">{{ subtitle }}</p>
+  </ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="add.emit()">
+      <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
