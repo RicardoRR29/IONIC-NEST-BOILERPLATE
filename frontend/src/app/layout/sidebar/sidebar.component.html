@@ -1,0 +1,20 @@
+<ion-menu contentId="main-content" type="overlay">
+  <ion-content>
+    <div class="user-info" *ngIf="auth.userId">
+      <ion-icon name="person-circle-outline" class="avatar"></ion-icon>
+      <p class="text-muted">ID: {{ auth.userId }}</p>
+    </div>
+    <ion-list>
+      <ion-menu-toggle auto-hide="false">
+        <ion-item routerLink="/users" routerDirection="root">
+          <ion-icon name="people-outline" slot="start"></ion-icon>
+          <ion-label>Users</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+    <ion-item lines="none" (click)="auth.logout()" routerLink="/login">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      <ion-label>Logout</ion-label>
+    </ion-item>
+  </ion-content>
+</ion-menu>
