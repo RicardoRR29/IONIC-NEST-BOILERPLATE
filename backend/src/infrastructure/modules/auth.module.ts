@@ -10,6 +10,9 @@ import { JwtStrategy } from '../../interface/http/guards/jwt.strategy';
 import { JwtTokenService } from '../services/jwt.service';
 import { BcryptService } from '../services/bcrypt.service';
 import { LoginUseCase } from '../../application/use-cases/auth/login.use-case';
+import { LogoutUseCase } from '../../application/use-cases/auth/logout.use-case';
+import { JwtAuthGuard } from '../../interface/http/guards/jwt-auth.guard';
+import { TokenBlacklistService } from '../services/token-blacklist.service';
 
 @Module({
   imports: [
@@ -29,10 +32,14 @@ import { LoginUseCase } from '../../application/use-cases/auth/login.use-case';
     AuthService,
     LocalStrategy,
     JwtStrategy,
+    JwtAuthGuard,
     JwtTokenService,
     BcryptService,
+    TokenBlacklistService,
     { provide: 'ICryptoService', useExisting: BcryptService },
+    { provide: 'ITokenBlacklistService', useExisting: TokenBlacklistService },
     LoginUseCase,
+    LogoutUseCase,
   ],
 })
 export class AuthModule {}
