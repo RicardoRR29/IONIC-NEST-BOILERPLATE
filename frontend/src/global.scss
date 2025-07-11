@@ -25,8 +25,9 @@
 
 /* Body base */
 body {
-  font-family: var(--ion-font-family);
-  background: var(--ion-background-color);
+  --ion-font-family: 'Inter', sans-serif;
+  background-color: #f7f9fc;
+  font-size: 15px;
   color: var(--ion-text-color);
 }
 
@@ -41,24 +42,27 @@ body {
 
 /* Tipografia utilitária */
 .text-title-xl {
-  font-size: var(--ion-font-size-xl);
-  font-weight: 700;
-  color: var(--ion-text-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 .text-muted {
-  font-size: var(--ion-font-size-sm);
-  color: #34405a;
+  color: #6c757d;
 }
 
 /* Ícone com fundo destacado */
 .icon-badge {
-  font-size: 3rem;
-  background: #e8efff;
-  color: var(--ion-color-primary);
+  background: #e0ecff;
+  border-radius: 50%;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  color: #2563eb;
+}
+
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background-color: #fff;
   padding: 1rem;
-  border-radius: 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }

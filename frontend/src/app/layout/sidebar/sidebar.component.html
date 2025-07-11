@@ -1,0 +1,27 @@
+<ion-menu contentId="main-content" type="overlay">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle auto-hide="false">
+        <ion-item routerLink="/users" routerDirection="root">
+          <ion-icon name="people-outline" slot="start"></ion-icon>
+          <ion-label>Users</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+    <div class="sidebar-footer">
+      <div *ngIf="currentUser">
+        <strong>{{ currentUser.name }}</strong>
+      </div>
+      <p class="text-muted">Token {{ tokenStatus }}</p>
+      <ion-button expand="block" fill="clear" color="danger" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        Logout
+      </ion-button>
+    </div>
+  </ion-content>
+</ion-menu>

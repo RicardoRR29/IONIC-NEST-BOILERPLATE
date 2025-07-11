@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   IonContent,
   IonHeader,
@@ -8,6 +9,8 @@ import {
   IonTitle,
   IonButton,
   IonButtons,
+  IonAvatar,
+  IonLabel,
   IonIcon,
   IonGrid,
   IonRow,
@@ -15,6 +18,8 @@ import {
 } from '@ionic/angular/standalone';
 import { AddUserModalComponent } from '../add-user/add-user-modal.component';
 import { EditUserModalComponent } from '../edit-user-modal/edit-user-modal.component';
+import { SidebarComponent } from '../layout/sidebar/sidebar.component';
+import { HeaderComponent } from '../layout/header/header.component';
 import { UserService, User } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { UiService } from '../services/ui.service';
@@ -30,18 +35,25 @@ import { UiService } from '../services/ui.service';
     IonRow,
     IonCol,
     CommonModule,
+    FormsModule,
     IonContent,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonButton,
     IonButtons,
+    IonAvatar,
+    IonLabel,
     AddUserModalComponent,
     EditUserModalComponent,
+    SidebarComponent,
+    HeaderComponent,
   ],
 })
 export class UsersPage implements OnInit {
   users: User[] = [];
+  currentUser: User | null = null;
+  search = '';
   @ViewChild(AddUserModalComponent) addModal!: AddUserModalComponent;
   @ViewChild(EditUserModalComponent) editModal!: EditUserModalComponent;
 
@@ -54,6 +66,7 @@ export class UsersPage implements OnInit {
 
   ngOnInit() {
     this.load();
+    this.loadCurrentUser();
   }
 
   ionViewWillEnter() {
@@ -62,6 +75,13 @@ export class UsersPage implements OnInit {
 
   async load() {
     this.users = await this.userService.findAll();
+  }
+
+  async loadCurrentUser() {
+    const id = this.auth.userId;
+    if (id) {
+      this.currentUser = await this.userService.get(id);
+    }
   }
 
   addUser() {
@@ -81,6 +101,16 @@ export class UsersPage implements OnInit {
     if (index > -1) {
       this.users[index] = updated;
     }
+  }
+
+  get filteredUsers(): User[] {
+    if (!this.search) return this.users;
+    const term = this.search.toLowerCase();
+    return this.users.filter(
+      (u) =>
+        u.name.toLowerCase().includes(term) ||
+        u.email.toLowerCase().includes(term)
+    );
   }
 
   async deleteUser(user: User) {
