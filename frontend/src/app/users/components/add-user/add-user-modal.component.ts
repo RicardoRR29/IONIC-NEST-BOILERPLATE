@@ -34,7 +34,11 @@ export class AddUserModalComponent {
     this.form = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/[^A-Za-z0-9]/),
+      ]],
     });
   }
 
@@ -51,7 +55,11 @@ export class AddUserModalComponent {
       this.currentUser = null;
       this.form.reset();
       this.form.get('password')?.enable();
-      this.form.get('password')?.setValidators([Validators.required, Validators.minLength(6)]);
+      this.form.get('password')?.setValidators([
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/[^A-Za-z0-9]/),
+      ]);
     }
     this.form.updateValueAndValidity();
   }
