@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/angular/standalone';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   standalone: true,
-  imports: [IonApp, IonRouterOutlet],
+  imports: [IonApp, IonRouterOutlet, IonSplitPane, SidebarComponent],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(public auth: AuthService) {}
 }
