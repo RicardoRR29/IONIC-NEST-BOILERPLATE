@@ -2,20 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonButton,
-  IonButtons,
-  IonAvatar,
-  IonLabel,
-  IonIcon,
-  IonGrid,
-  IonRow,
-  IonCol,
-} from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
 import { AddUserModalComponent } from '../add-user/add-user-modal.component';
 import { EditUserModalComponent } from '../edit-user-modal/edit-user-modal.component';
 import { SidebarComponent } from '../layout/sidebar/sidebar.component';
@@ -30,20 +17,9 @@ import { UiService } from '../services/ui.service';
   styleUrls: ['./users.page.scss'],
   standalone: true,
   imports: [
-    IonIcon,
-    IonGrid,
-    IonRow,
-    IonCol,
     CommonModule,
     FormsModule,
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButton,
-    IonButtons,
-    IonAvatar,
-    IonLabel,
+    IonicModule,
     AddUserModalComponent,
     EditUserModalComponent,
     SidebarComponent,
@@ -59,7 +35,7 @@ export class UsersPage implements OnInit {
 
   constructor(
     private userService: UserService,
-    private auth: AuthService,
+    public auth: AuthService,
     private router: Router,
     private ui: UiService
   ) {}
