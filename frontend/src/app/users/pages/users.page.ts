@@ -14,6 +14,7 @@ import {
   IonCol,
 } from '@ionic/angular';
 import { AddUserModalComponent } from '../components/add-user/add-user-modal.component';
+import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
 import { UserService, User } from '../services/user.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { UiService } from '../../core/services/ui.service';
@@ -26,6 +27,7 @@ import { UiService } from '../../core/services/ui.service';
 export class UsersPage implements OnInit {
   users: User[] = [];
   @ViewChild(AddUserModalComponent) addModal!: AddUserModalComponent;
+  @ViewChild(ConfirmModalComponent) confirmModal!: ConfirmModalComponent;
 
   constructor(
     private userService: UserService,
@@ -66,7 +68,7 @@ export class UsersPage implements OnInit {
   }
 
   async deleteUser(user: User) {
-    const ok = await this.ui.confirm('Delete user?');
+    const ok = await this.confirmModal.open('Delete user?');
     if (!ok) return;
     try {
       await this.userService.delete(user.id);
