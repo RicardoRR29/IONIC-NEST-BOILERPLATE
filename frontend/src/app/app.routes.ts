@@ -14,7 +14,8 @@ export const routes: Routes = [
   {
     path: 'users',
     canActivate: [authGuard],
-    loadComponent: () => import('./users/users.page').then((m) => m.UsersPage),
+    loadChildren: () =>
+      import('./users/users.module').then((m) => m.UsersModule),
   },
   {
     path: '',
