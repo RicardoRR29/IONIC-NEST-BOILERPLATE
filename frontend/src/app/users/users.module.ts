@@ -14,7 +14,6 @@ import { EditUserModalComponent } from './components/edit-user-modal/edit-user-m
     FormsModule,
     ReactiveFormsModule,
     UsersRoutingModule,
-    UsersPage,
     AddUserModalComponent,
     EditUserModalComponent,
   ],
