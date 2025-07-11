@@ -1,0 +1,35 @@
+import { CreateUserUseCase } from './create-user.use-case';
+import { IUserRepository } from '../../../domain/repositories/user.repository';
+import { ICryptoService } from '../../../domain/services/crypto.service';
+import { AppException } from '../../../shared/exceptions/app.exception';
+
+const dto = { name: 'Bob', email: 'bob@test.com', password: 'Secret@1' };
+
+describe('CreateUserUseCase', () => {
+  let repo: jest.Mocked<IUserRepository>;
+  let crypto: jest.Mocked<ICryptoService>;
+  let useCase: CreateUserUseCase;
+
+  beforeEach(() => {
+    repo = {
+      create: jest.fn(),
+      findByEmail: jest.fn(),
+    } as any;
+    crypto = { hash: jest.fn() } as any;
+    useCase = new CreateUserUseCase(repo, crypto);
+  });
+
+  it('creates a user when email is new', async () => {
+    repo.findByEmail.mockResolvedValue(null);
+    crypto.hash.mockResolvedValue('hashed');
+    repo.create.mockImplementation(async (u) => ({ id: 1, ...u } as any));
+
+    const result = await useCase.execute(dto);
+    expect(result).toEqual(expect.objectContaining({ id: 1, password: 'hashed' }));
+  });
+
+  it('throws when email exists', async () => {
+    repo.findByEmail.mockResolvedValue({ id: 1 } as any);
+    await expect(useCase.execute(dto)).rejects.toBeInstanceOf(AppException);
+  });
+});
