@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth.module';
 import { User } from '../../domain/entities/user.entity';
 import { UserOrmRepository } from '../database/postgres/user.orm.repository';
 import { CreateUserUseCase } from '../../application/use-cases/user/create-user.use-case';
@@ -11,7 +12,7 @@ import { BcryptService } from '../services/bcrypt.service';
 import { UsersController } from '../../interface/http/controllers/users.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([User]), forwardRef(() => AuthModule)],
   controllers: [UsersController],
   providers: [
     UserOrmRepository,

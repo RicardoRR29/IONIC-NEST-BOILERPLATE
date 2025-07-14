@@ -13,6 +13,6 @@ describe('LogoutUseCase', () => {
       new JwtService({ secret: 't' }),
     );
     useCase.execute('token');
-    expect(blacklist.add.bind(blacklist)).toHaveBeenCalled();
+    expect(blacklist.add).toHaveBeenCalled();
   });
 });
