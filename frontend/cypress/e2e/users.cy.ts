@@ -7,14 +7,18 @@ const initialUsers: User[] = [
   { id: 2, name: 'Bob', email: 'bob@example.com' },
 ];
 
-describe('User management', () => {
-  beforeEach(() => {
-    cy.window().then(w => w.localStorage.setItem('token', token));
+const visitWithToken = (url: string) =>
+  cy.visit(url, {
+    onBeforeLoad: win => {
+      win.localStorage.setItem('token', token);
+    },
   });
+
+describe('User management', () => {
 
   it('redirects logged-in user from /login to /users', () => {
     cy.intercept('GET', `${base}/users`, initialUsers).as('users');
-    cy.visit('/login');
+    visitWithToken('/login');
     cy.wait('@users');
     cy.url().should('include', '/users');
     cy.contains('Gerenciamento de Usuários');
@@ -26,7 +30,7 @@ describe('User management', () => {
     cy.intercept('POST', `${base}/users`, newUser).as('createUser');
     cy.intercept('GET', `${base}/users`, [...initialUsers, newUser]).as('usersAfter');
 
-    cy.visit('/users');
+    visitWithToken('/users');
     cy.wait('@users');
 
     cy.contains('Novo Usuário').click();
@@ -46,7 +50,7 @@ describe('User management', () => {
     cy.intercept('PUT', `${base}/users/1`, updated).as('updateUser');
     cy.intercept('GET', `${base}/users`, [updated, initialUsers[1]]).as('usersAfter');
 
-    cy.visit('/users');
+    visitWithToken('/users');
     cy.wait('@users');
 
     cy.get('ion-icon[name="create-outline"]').first().click({ force: true });
@@ -64,7 +68,7 @@ describe('User management', () => {
     cy.intercept('DELETE', `${base}/users/2`, {}).as('deleteUser');
     cy.intercept('GET', `${base}/users`, [initialUsers[0]]).as('usersAfter');
 
-    cy.visit('/users');
+    visitWithToken('/users');
     cy.wait('@users');
 
     cy.get('ion-icon[name="trash-outline"]').eq(1).click({ force: true });
@@ -77,7 +81,7 @@ describe('User management', () => {
 
   it('searches for a user', () => {
     cy.intercept('GET', `${base}/users`, initialUsers).as('users');
-    cy.visit('/users');
+    visitWithToken('/users');
     cy.wait('@users');
 
     cy.get('ion-searchbar input').type('bob');
@@ -87,13 +91,13 @@ describe('User management', () => {
 
   it('logs out and blocks access to /users', () => {
     cy.intercept('GET', `${base}/users`, initialUsers).as('users');
-    cy.visit('/users');
+    visitWithToken('/users');
     cy.wait('@users');
 
     cy.get('ion-icon[name="log-out-outline"]').click({ force: true });
     cy.url().should('include', '/login');
 
-    cy.visit('/users');
+    visitWithToken('/users');
     cy.url().should('include', '/login');
   });
 });
