@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule, NavController, LoadingController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { IonInput } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [IonicModule, CommonModule, ReactiveFormsModule],
+  imports: [IonicModule, CommonModule, ReactiveFormsModule, IonInput],
   templateUrl: './auth.page.html',
   styleUrls: ['./auth.page.scss'],
 })
@@ -22,16 +28,19 @@ export class AuthPage implements OnInit {
     private authService: AuthService,
     private navCtrl: NavController,
     private loadingCtrl: LoadingController,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     this.form = this.fb.group({
       name: [''],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.pattern(/[^A-Za-z0-9]/),
-      ]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(/[^A-Za-z0-9]/),
+        ],
+      ],
     });
   }
 
