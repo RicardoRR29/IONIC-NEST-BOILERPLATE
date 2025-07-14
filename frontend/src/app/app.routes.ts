@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './services/auth.guard';
+import { redirectGuard } from './services/redirect.guard';
 
 export const routes: Routes = [
   {
@@ -18,7 +19,11 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
     pathMatch: 'full',
+    canActivate: [redirectGuard],
+  },
+  {
+    path: '**',
+    canActivate: [redirectGuard],
   },
 ];
