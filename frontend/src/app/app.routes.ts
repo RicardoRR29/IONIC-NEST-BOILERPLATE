@@ -13,8 +13,8 @@ export const routes: Routes = [
   {
     path: 'users',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./users/users.module').then((m) => m.UsersModule),
+    loadComponent: () =>
+      import('./users/pages/users.page').then((m) => m.UsersPage),
   },
   {
     path: '',
