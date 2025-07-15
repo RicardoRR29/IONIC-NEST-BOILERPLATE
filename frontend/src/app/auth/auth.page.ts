@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule, NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -9,12 +9,28 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { IonInput } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonCard,
+  IonIcon,
+  IonItem,
+  IonInput,
+  IonButton,
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [IonicModule, CommonModule, ReactiveFormsModule, IonInput],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    IonContent,
+    IonCard,
+    IonIcon,
+    IonItem,
+    IonInput,
+    IonButton,
+  ],
   templateUrl: './auth.page.html',
   styleUrls: ['./auth.page.scss'],
 })
