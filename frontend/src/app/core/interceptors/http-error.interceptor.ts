@@ -14,9 +14,12 @@ import { ErrorTranslatorService } from '../services/error-translator.service';
 export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
+      const translator = inject(ErrorTranslatorService);
+      const toast = inject(ToastService);
+      const userMsg = error?.error?.userMessage;
       const code = error?.error?.internalCode;
-      const message = inject(ErrorTranslatorService).translate(code);
-      inject(ToastService).error(message);
+      const message = userMsg || translator.translate(code);
+      toast.error(message);
       return throwError(() => error);
     })
   );
