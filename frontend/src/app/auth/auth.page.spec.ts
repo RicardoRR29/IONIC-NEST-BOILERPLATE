@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IonicModule, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 import { AuthPage } from './auth.page';
 import { AuthService } from '../services/auth.service';
 
@@ -19,8 +20,9 @@ describe('AuthPage', () => {
   beforeEach(async () => {
     auth = new AuthServiceMock();
     await TestBed.configureTestingModule({
-      imports: [IonicModule, ReactiveFormsModule, RouterTestingModule, AuthPage],
+      imports: [ReactiveFormsModule, RouterTestingModule, AuthPage],
       providers: [
+        provideIonicAngular(),
         { provide: AuthService, useValue: auth },
         { provide: NavController, useValue: { navigateRoot: () => {}, navigateForward: () => {}, navigateBack: () => {} } },
       ],

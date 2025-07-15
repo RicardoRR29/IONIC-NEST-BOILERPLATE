@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { IonicModule } from '@ionic/angular';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { UsersPage } from './users.page';
 import { UserService, User } from '../services/user.service';
@@ -24,8 +24,9 @@ describe('UsersPage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IonicModule, FormsModule, RouterTestingModule, UsersPage],
+      imports: [FormsModule, RouterTestingModule, UsersPage],
       providers: [
+        provideIonicAngular(),
         { provide: UserService, useClass: UserServiceMock },
         { provide: AuthService, useClass: AuthServiceMock },
         { provide: UiService, useClass: UiServiceMock },

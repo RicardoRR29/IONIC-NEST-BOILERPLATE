@@ -1,11 +1,30 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import {
+  IonModal,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonButtons,
+  IonButton,
+  IonIcon,
+  IonCardContent,
+} from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-confirm-modal',
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [
+    IonModal,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    IonCardContent,
+    CommonModule,
+  ],
   templateUrl: './confirm-modal.component.html',
   styleUrls: ['./confirm-modal.component.scss'],
 })
