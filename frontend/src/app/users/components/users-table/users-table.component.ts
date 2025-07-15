@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonCard, IonCardContent } from '@ionic/angular/standalone';
 import { TableComponent } from '../../../shared/table/table.component';
 import { User } from '../../services/user.service';
 
 @Component({
   selector: 'app-users-table',
   standalone: true,
-  imports: [CommonModule, IonicModule, TableComponent],
+  imports: [CommonModule, IonCard, IonCardContent, TableComponent],
   templateUrl: './users-table.component.html',
   styleUrls: ['./users-table.component.scss'],
 })

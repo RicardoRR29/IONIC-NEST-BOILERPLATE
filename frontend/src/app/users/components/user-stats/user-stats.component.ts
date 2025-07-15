@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonCard, IonCardContent } from '@ionic/angular/standalone';
 import { User } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-stats',
   standalone: true,
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonCard, IonCardContent],
   templateUrl: './user-stats.component.html',
   styleUrls: ['./user-stats.component.scss'],
 })

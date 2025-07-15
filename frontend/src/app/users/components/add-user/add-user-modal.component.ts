@@ -1,5 +1,16 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import {
+  IonModal,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonButtons,
+  IonButton,
+  IonIcon,
+  IonCardContent,
+  IonItem,
+  IonInput,
+} from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -13,7 +24,20 @@ import { UiService } from '../../../core/services/ui.service';
 @Component({
   selector: 'app-add-user-modal',
   standalone: true,
-  imports: [IonicModule, CommonModule, ReactiveFormsModule],
+  imports: [
+    IonModal,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    IonCardContent,
+    IonItem,
+    IonInput,
+    CommonModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './add-user-modal.component.html',
   styleUrls: ['./add-user-modal.component.scss'],
 })

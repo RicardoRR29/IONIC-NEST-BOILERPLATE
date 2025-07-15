@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 import { AddUserModalComponent } from './add-user-modal.component';
 import { UserService } from '../../services/user.service';
 import { UiService } from '../../../core/services/ui.service';
@@ -19,8 +19,9 @@ describe('AddUserModalComponent', () => {
   beforeEach(async () => {
     userService = new UserServiceMock();
     await TestBed.configureTestingModule({
-      imports: [IonicModule, ReactiveFormsModule, AddUserModalComponent],
+      imports: [ReactiveFormsModule, AddUserModalComponent],
       providers: [
+        provideIonicAngular(),
         { provide: UserService, useValue: userService },
         { provide: UiService, useClass: UiServiceMock },
       ],

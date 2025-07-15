@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonBadge, IonButton, IonIcon } from '@ionic/angular/standalone';
 
 export interface ColumnDefinition {
   header: string;
@@ -10,7 +10,7 @@ export interface ColumnDefinition {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonBadge, IonButton, IonIcon],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
