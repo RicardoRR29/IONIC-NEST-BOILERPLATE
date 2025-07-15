@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, LoadingController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -10,12 +9,14 @@ import {
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import {
-  IonContent,
-  IonCard,
-  IonIcon,
-  IonItem,
-  IonInput,
   IonButton,
+  IonCard,
+  IonContent,
+  IonIcon,
+  IonInput,
+  IonItem,
+  LoadingController,
+  NavController,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -26,9 +27,9 @@ import {
     ReactiveFormsModule,
     IonContent,
     IonCard,
-    IonIcon,
     IonItem,
     IonInput,
+    IonIcon,
     IonButton,
   ],
   templateUrl: './auth.page.html',
@@ -77,25 +78,50 @@ export class AuthPage implements OnInit {
   }
 
   async submit() {
+    console.log('[submit] Called');
+
     if (this.form.invalid) {
+      console.warn('[submit] Form is invalid:', this.form.value);
       this.form.markAllAsTouched();
       return;
     }
+
+    console.log('[submit] Form is valid:', this.form.value);
+
+    const loadingMessage =
+      this.mode === 'login' ? 'Logging in…' : 'Registering…';
+    console.log(`[submit] Showing loading: "${loadingMessage}"`);
+
     const loading = await this.loadingCtrl.create({
-      message: this.mode === 'login' ? 'Logging in…' : 'Registering…',
+      message: loadingMessage,
     });
+
     await loading.present();
+    console.log('[submit] Loading presented');
+
     const { name, email, password } = this.form.value;
+    console.log('[submit] Extracted form values:', { name, email, password });
+
     try {
       if (this.mode === 'login') {
+        console.log('[submit] Mode is login. Attempting login…');
         await this.authService.login(email, password);
+        console.log('[submit] Login successful');
       } else {
+        console.log('[submit] Mode is register. Attempting registration…');
         await this.authService.register(name, email, password);
+        console.log('[submit] Registration successful');
       }
+
       await loading.dismiss();
+      console.log('[submit] Loading dismissed after success');
+
+      console.log('[submit] Navigating to /users');
       this.navCtrl.navigateRoot('/users');
-    } catch {
+    } catch (error) {
+      console.error('[submit] Error occurred:', error);
       await loading.dismiss();
+      console.log('[submit] Loading dismissed after error');
     }
   }
 

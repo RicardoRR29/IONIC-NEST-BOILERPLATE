@@ -9,17 +9,12 @@ import {
   IonicRouteStrategy,
   provideIonicAngular,
 } from '@ionic/angular/standalone';
-import {
-  provideHttpClient,
-  withInterceptors,
-  withInterceptorsFromDi,
-  HTTP_INTERCEPTORS,
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { authInterceptor } from './app/services/auth.interceptor';
-import { HttpErrorInterceptor } from './app/core/interceptors/http-error.interceptor';
+import { httpErrorInterceptor } from './app/core/interceptors/http-error.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -27,9 +22,10 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(
-      withInterceptors([authInterceptor]),
-      withInterceptorsFromDi(),
+      withInterceptors([
+        authInterceptor,
+        httpErrorInterceptor, // ✅ registrado aqui como função standalone
+      ])
     ),
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
   ],
 });

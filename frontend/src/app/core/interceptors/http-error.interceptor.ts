@@ -1,31 +1,23 @@
-import { Injectable } from '@angular/core';
+// src/app/core/interceptors/http-error.interceptor.ts
+import { inject } from '@angular/core';
 import {
   HttpErrorResponse,
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
+  HttpInterceptorFn, // ✅ importe o tipo correto
   HttpRequest,
+  HttpHandlerFn,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ToastService } from '../../shared/toast.service';
 import { ErrorTranslatorService } from '../services/error-translator.service';
 
-@Injectable()
-export class HttpErrorInterceptor implements HttpInterceptor {
-  constructor(
-    private toast: ToastService,
-    private translator: ErrorTranslatorService,
-  ) {}
-
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(
-      catchError((error: HttpErrorResponse) => {
-        const code = error?.error?.internalCode;
-        const message = this.translator.translate(code);
-        this.toast.error(message);
-        return throwError(() => error);
-      }),
-    );
-  }
-}
+export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      const code = error?.error?.internalCode;
+      const message = inject(ErrorTranslatorService).translate(code);
+      inject(ToastService).error(message);
+      return throwError(() => error);
+    })
+  );
+};
