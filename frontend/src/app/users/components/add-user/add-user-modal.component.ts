@@ -10,8 +10,8 @@ import {
   IonCardContent,
   IonItem,
   IonInput,
-  IonText,
 } from '@ionic/angular/standalone';
+import { FormErrorComponent } from '../../../shared/form-error/form-error.component';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -37,9 +37,9 @@ import { ErrorTranslatorService } from '../../../core/services/error-translator.
     IonCardContent,
     IonItem,
     IonInput,
-    IonText,
     CommonModule,
     ReactiveFormsModule,
+    FormErrorComponent,
   ],
   templateUrl: './add-user-modal.component.html',
   styleUrls: ['./add-user-modal.component.scss'],

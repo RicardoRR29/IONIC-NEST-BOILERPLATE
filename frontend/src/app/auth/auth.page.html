@@ -30,15 +30,10 @@
             labelPlacement="floating"
           ></ion-input>
         </ion-item>
-        <ion-text
-          color="danger"
-          class="error-message"
-          *ngIf="mode === 'register' && form.get('name')?.touched && form.get('name')?.errors"
-        >
-          <small *ngIf="form.get('name')?.errors?.['required']">
-            Nome é obrigatório.
-          </small>
-        </ion-text>
+        <app-form-error
+          *ngIf="mode === 'register'"
+          [control]="form.get('name')"
+        ></app-form-error>
 
         <ion-item lines="full">
           <ion-icon slot="start" name="mail-outline"></ion-icon>
@@ -51,18 +46,7 @@
             required
           ></ion-input>
         </ion-item>
-        <ion-text
-          color="danger"
-          class="error-message"
-          *ngIf="form.get('email')?.touched && form.get('email')?.errors"
-        >
-          <small *ngIf="form.get('email')?.errors?.['required']">
-            Email é obrigatório.
-          </small>
-          <small *ngIf="form.get('email')?.errors?.['email']">
-            Email inválido.
-          </small>
-        </ion-text>
+        <app-form-error [control]="form.get('email')"></app-form-error>
 
         <ion-item lines="full">
           <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
@@ -87,21 +71,7 @@
             ></ion-icon>
           </ion-button>
         </ion-item>
-        <ion-text
-          color="danger"
-          class="error-message"
-          *ngIf="form.get('password')?.touched && form.get('password')?.errors"
-        >
-          <small *ngIf="form.get('password')?.errors?.['required']">
-            Senha é obrigatória.
-          </small>
-          <small *ngIf="form.get('password')?.errors?.['minlength']">
-            Senha deve ter ao menos 8 caracteres.
-          </small>
-          <small *ngIf="form.get('password')?.errors?.['pattern']">
-            Senha deve conter ao menos um caractere especial.
-          </small>
-        </ion-text>
+        <app-form-error [control]="form.get('password')"></app-form-error>
 
         <ion-button expand="block" class="btn-primary" type="submit">
           {{ mode === 'login' ? 'Entrar' : 'Cadastrar' }}

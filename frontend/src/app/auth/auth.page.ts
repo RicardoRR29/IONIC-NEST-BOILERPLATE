@@ -15,12 +15,12 @@ import {
   IonIcon,
   IonInput,
   IonItem,
-  IonText,
   LoadingController,
   NavController,
 } from '@ionic/angular/standalone';
 import { UiService } from '../core/services/ui.service';
 import { ErrorTranslatorService } from '../core/services/error-translator.service';
+import { FormErrorComponent } from '../shared/form-error/form-error.component';
 
 @Component({
   selector: 'app-auth',
@@ -33,8 +33,8 @@ import { ErrorTranslatorService } from '../core/services/error-translator.servic
     IonItem,
     IonInput,
     IonIcon,
-    IonText,
     IonButton,
+    FormErrorComponent,
   ],
   templateUrl: './auth.page.html',
   styleUrls: ['./auth.page.scss'],
