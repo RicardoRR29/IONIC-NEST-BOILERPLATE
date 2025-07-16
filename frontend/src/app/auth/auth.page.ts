@@ -15,6 +15,7 @@ import {
   IonIcon,
   IonInput,
   IonItem,
+  IonText,
   LoadingController,
   NavController,
 } from '@ionic/angular/standalone';
@@ -32,6 +33,7 @@ import { ErrorTranslatorService } from '../core/services/error-translator.servic
     IonItem,
     IonInput,
     IonIcon,
+    IonText,
     IonButton,
   ],
   templateUrl: './auth.page.html',

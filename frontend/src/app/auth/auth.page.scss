@@ -81,6 +81,12 @@
       font-size: var(--ion-font-size-md);
     }
   }
+
+  .error-message {
+    margin: 0.25rem 0 0 0.5rem;
+    font-size: 0.75rem;
+    color: var(--ion-color-danger);
+  }
 }
 
 /* Link de registro abaixo do botão */
