@@ -7,6 +7,7 @@ import {
 } from '@ionic/angular/standalone';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AuthService } from './services/auth.service';
+import { ToastComponent } from './shared/toast/toast.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { AuthService } from './services/auth.service';
     IonRouterOutlet,
     IonSplitPane,
     SidebarComponent,
+    ToastComponent,
   ],
 })
 export class AppComponent {
