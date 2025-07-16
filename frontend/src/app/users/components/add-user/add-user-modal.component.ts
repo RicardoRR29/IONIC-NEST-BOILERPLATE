@@ -20,6 +20,7 @@ import {
 } from '@angular/forms';
 import { UserService, User } from '../../services/user.service';
 import { UiService } from '../../../core/services/ui.service';
+import { ErrorTranslatorService } from '../../../core/services/error-translator.service';
 
 @Component({
   selector: 'app-add-user-modal',
@@ -54,6 +55,7 @@ export class AddUserModalComponent {
     private fb: FormBuilder,
     private userService: UserService,
     private ui: UiService,
+    private translator: ErrorTranslatorService,
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -105,20 +107,26 @@ export class AddUserModalComponent {
           this.form.value.name!,
           this.form.value.email!,
         );
-        this.userUpdated.emit(updated);
-        this.ui.toast('Usuário atualizado', 'success');
+        const msg = (updated as any)?.message;
+        this.userUpdated.emit(updated as User);
+        this.ui.toast(msg || 'Usuário atualizado', 'success');
       } else {
         const user = await this.userService.create(
           this.form.value.name!,
           this.form.value.email!,
           this.form.value.password!,
         );
-        this.userCreated.emit(user);
-        this.ui.toast('Usuário criado', 'success');
+        const msg = (user as any)?.message;
+        this.userCreated.emit(user as User);
+        this.ui.toast(msg || 'Usuário criado', 'success');
       }
       this.close();
-    } catch {
-      // error handled globally
+    } catch (error) {
+      const httpError = error as any;
+      const message =
+        httpError?.error?.userMessage ||
+        this.translator.translate(httpError?.error?.internalCode);
+      this.ui.toast(message, 'danger');
     }
   }
 }
