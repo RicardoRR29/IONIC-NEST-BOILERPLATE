@@ -70,7 +70,7 @@
 .form-body {
   ion-item {
     --highlight-color-focused: var(--ion-color-primary);
-    margin-bottom: 1rem;
+    margin-top: 1rem;
 
     ion-icon[slot="start"] {
       margin-right: 0.5rem;
@@ -83,9 +83,12 @@
   }
 
   .error-message {
-    margin: 0.25rem 0 0 0.5rem;
     font-size: 0.75rem;
     color: var(--ion-color-danger);
+
+  }
+  ion-button {
+    margin-top: 1rem;
   }
 }
 

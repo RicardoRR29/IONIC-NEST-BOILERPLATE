@@ -30,7 +30,7 @@
             labelPlacement="floating"
           ></ion-input>
         </ion-item>
-        <app-form-error
+        <app-form-error class="error-message"
           *ngIf="mode === 'register'"
           [control]="form.get('name')"
         ></app-form-error>
@@ -46,7 +46,7 @@
             required
           ></ion-input>
         </ion-item>
-        <app-form-error [control]="form.get('email')"></app-form-error>
+        <app-form-error class="error-message" [control]="form.get('email')"></app-form-error>
 
         <ion-item lines="full">
           <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
@@ -71,7 +71,7 @@
             ></ion-icon>
           </ion-button>
         </ion-item>
-        <app-form-error [control]="form.get('password')"></app-form-error>
+        <app-form-error class="error-message" [control]="form.get('password')"></app-form-error>
 
         <ion-button expand="block" class="btn-primary" type="submit">
           {{ mode === 'login' ? 'Entrar' : 'Cadastrar' }}

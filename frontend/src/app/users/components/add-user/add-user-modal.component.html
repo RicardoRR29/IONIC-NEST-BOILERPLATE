@@ -20,39 +20,44 @@
       <!-- Formulário -->
       <ion-card-content>
         <form [formGroup]="form" (ngSubmit)="save()" class="form-wrapper">
-          <ion-item lines="none">
-            <ion-input
-              formControlName="name"
-              label="Nome"
-              labelPlacement="floating"
-            ></ion-input>
-          </ion-item>
-          <app-form-error [control]="form.get('name')"></app-form-error>
+          <div>
+            <ion-item lines="none">
+              <ion-input
+                formControlName="name"
+                label="Nome"
+                labelPlacement="floating"
+              ></ion-input>
+            </ion-item>
+            <app-form-error [control]="form.get('name')"></app-form-error>
+          </div>
+          <div>
+            <ion-item lines="none">
+              <ion-input
+                formControlName="email"
+                label="Email"
+                labelPlacement="floating"
+                type="email"
+                autocomplete="off"
+              ></ion-input>
+            </ion-item>
+            <app-form-error [control]="form.get('email')"></app-form-error>
+          </div>
+          <div>
+            <ion-item lines="none" *ngIf="!editing">
+              <ion-input
+                formControlName="password"
+                label="Senha"
+                labelPlacement="floating"
+                type="password"
+                autocomplete="off"
+              ></ion-input>
+            </ion-item>
+            <app-form-error
+              *ngIf="!editing"
+              [control]="form.get('password')"
+            ></app-form-error>
+          </div>
 
-          <ion-item lines="none">
-            <ion-input
-              formControlName="email"
-              label="Email"
-              labelPlacement="floating"
-              type="email"
-              autocomplete="off"
-            ></ion-input>
-          </ion-item>
-          <app-form-error [control]="form.get('email')"></app-form-error>
-
-          <ion-item lines="none" *ngIf="!editing">
-            <ion-input
-              formControlName="password"
-              label="Senha"
-              labelPlacement="floating"
-              type="password"
-              autocomplete="off"
-            ></ion-input>
-          </ion-item>
-          <app-form-error
-            *ngIf="!editing"
-            [control]="form.get('password')"
-          ></app-form-error>
 
           <ion-button
             expand="block"
