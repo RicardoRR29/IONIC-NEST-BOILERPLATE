@@ -10,6 +10,7 @@ import {
   IonCardContent,
   IonItem,
   IonInput,
+  IonText,
 } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import {
@@ -36,6 +37,7 @@ import { ErrorTranslatorService } from '../../../core/services/error-translator.
     IonCardContent,
     IonItem,
     IonInput,
+    IonText,
     CommonModule,
     ReactiveFormsModule,
   ],
