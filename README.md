@@ -7,7 +7,10 @@ This repository contains a basic NestJS backend with authentication, a simple Io
 1. Copy `.env.example` to `.env` inside `backend` and adjust settings.
 2. Run `docker-compose up` to start PostgreSQL, the backend and the frontend.
 3. Backend Swagger docs available at `http://localhost:3000/api`.
-4. Frontend available at `http://localhost:4200`.
+4. Frontend available at `http://localhost:4200` when running with `npm start`.
+   When using Docker the frontend container communicates with the backend via
+   the `backend` service name, so the production build points to
+   `http://backend:3000` internally.
 
 ## Features
 
