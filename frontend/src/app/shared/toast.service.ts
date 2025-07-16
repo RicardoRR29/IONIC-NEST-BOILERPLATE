@@ -1,27 +1,37 @@
 import { Injectable } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Subject } from 'rxjs';
+
+export interface ToastMessage {
+  id: number;
+  message: string;
+  color: 'success' | 'danger' | 'warning' | 'primary';
+  duration?: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
-  constructor(private toastController: ToastController) {}
+  private counter = 0;
+  private toastSubject = new Subject<ToastMessage>();
+  toast$ = this.toastSubject.asObservable();
 
-  async error(message: string) {
-    const toast = await this.toastController.create({
+  show(
+    message: string,
+    color: 'success' | 'danger' | 'warning' | 'primary' = 'primary',
+    duration = 2000
+  ) {
+    this.toastSubject.next({
+      id: this.counter++,
       message,
-      duration: 3000,
-      color: 'danger',
-      position: 'bottom',
+      color,
+      duration,
     });
-    toast.present();
   }
 
-  async success(message: string) {
-    const toast = await this.toastController.create({
-      message,
-      duration: 2000,
-      color: 'success',
-      position: 'bottom',
-    });
-    toast.present();
+  success(message: string, duration = 2000) {
+    this.show(message, 'success', duration);
+  }
+
+  error(message: string, duration = 3000) {
+    this.show(message, 'danger', duration);
   }
 }

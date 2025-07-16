@@ -1,24 +1,19 @@
 import { Injectable } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { ToastService } from '../../shared/toast.service';
 
 @Injectable({ providedIn: 'root' })
 export class UiService {
   constructor(
-    private toastCtrl: ToastController,
+    private toastSvc: ToastService,
     private alertCtrl: AlertController
   ) {}
 
-  async toast(
+  toast(
     message: string,
     color: 'success' | 'danger' | 'warning' | 'primary' = 'primary'
   ) {
-    const toast = await this.toastCtrl.create({
-      message,
-      duration: 2000,
-      color,
-      position: 'bottom',
-    });
-    await toast.present();
+    this.toastSvc.show(message, color);
   }
 
   async confirm(message: string): Promise<boolean> {
