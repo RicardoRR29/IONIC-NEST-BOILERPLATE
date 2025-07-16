@@ -22,10 +22,7 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(
-      withInterceptors([
-        authInterceptor,
-        httpErrorInterceptor, // ✅ registrado aqui como função standalone
-      ])
+      withInterceptors([authInterceptor, httpErrorInterceptor])
     ),
   ],
 });
