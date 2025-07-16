@@ -18,6 +18,8 @@ import {
   LoadingController,
   NavController,
 } from '@ionic/angular/standalone';
+import { UiService } from '../core/services/ui.service';
+import { ErrorTranslatorService } from '../core/services/error-translator.service';
 
 @Component({
   selector: 'app-auth',
@@ -45,7 +47,9 @@ export class AuthPage implements OnInit {
     private authService: AuthService,
     private navCtrl: NavController,
     private loadingCtrl: LoadingController,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private ui: UiService,
+    private translator: ErrorTranslatorService
   ) {
     this.form = this.fb.group({
       name: [''],
@@ -103,25 +107,35 @@ export class AuthPage implements OnInit {
     console.log('[submit] Extracted form values:', { name, email, password });
 
     try {
+      let msg: string | undefined;
       if (this.mode === 'login') {
         console.log('[submit] Mode is login. Attempting login…');
-        await this.authService.login(email, password);
+        msg = await this.authService.login(email, password);
         console.log('[submit] Login successful');
       } else {
         console.log('[submit] Mode is register. Attempting registration…');
-        await this.authService.register(name, email, password);
+        msg = await this.authService.register(name, email, password);
         console.log('[submit] Registration successful');
       }
 
       await loading.dismiss();
       console.log('[submit] Loading dismissed after success');
 
+      this.ui.toast(
+        msg || (this.mode === 'login' ? 'Login realizado' : 'Usuário registrado'),
+        'success'
+      );
       console.log('[submit] Navigating to /users');
       this.navCtrl.navigateRoot('/users');
     } catch (error) {
       console.error('[submit] Error occurred:', error);
       await loading.dismiss();
       console.log('[submit] Loading dismissed after error');
+      const httpError = error as any;
+      const message =
+        httpError?.error?.userMessage ||
+        this.translator.translate(httpError?.error?.internalCode);
+      this.ui.toast(message, 'danger');
     }
   }
 

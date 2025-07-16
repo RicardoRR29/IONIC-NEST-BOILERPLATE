@@ -38,7 +38,7 @@ Abriga serviços globais como `AuthService` e `UserService`. O `AuthService` cui
 Define infraestrutura comum do projeto. Agrupa interceptadores e serviços de apoio que existem apenas uma vez. Utiliza o padrão singleton para configurações globais. Mantém a aplicação livre de duplicação de código transversal. É carregado na inicialização principal do app.
 
 📁 app/core/interceptors/
-Guarda interceptadores do `HttpClient`. O `authInterceptor` injeta o token em cada requisição autenticada. O `http-error.interceptor` traduz códigos e exibe toasts de erro. Ambos atuam como middleware de rede. Ajudam na segurança e no feedback ao usuário.
+Guarda interceptadores do `HttpClient`. Atualmente apenas o `authInterceptor` injeta o token em cada requisição autenticada. Os erros de rede são tratados diretamente nos componentes.
 
 📁 app/core/services/
 Contém serviços utilitários como `UiService` e `ErrorTranslatorService`. O `UiService` centraliza toasts e diálogos de confirmação. `ErrorTranslatorService` converte códigos em mensagens legíveis. Estes serviços são usados por todo o sistema. Tornam a experiência do usuário mais amigável.

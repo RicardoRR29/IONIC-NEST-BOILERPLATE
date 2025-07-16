@@ -16,6 +16,7 @@ import { UserStatsComponent } from '../components/user-stats/user-stats.componen
 import { UsersTableComponent } from '../components/users-table/users-table.component';
 import { User, UserService } from '../services/user.service';
 import { UiService } from '../../core/services/ui.service';
+import { ErrorTranslatorService } from '../../core/services/error-translator.service';
 
 @Component({
   selector: 'app-users',
@@ -48,7 +49,8 @@ export class UsersPage implements OnInit {
     private userService: UserService,
     private auth: AuthService,
     private router: Router,
-    private ui: UiService
+    private ui: UiService,
+    private translator: ErrorTranslatorService
   ) {}
 
   ngOnInit() {
@@ -68,11 +70,19 @@ export class UsersPage implements OnInit {
   }
 
   async load() {
-    this.users = await this.userService.findAll();
+    try {
+      this.users = await this.userService.findAll();
 
-    // get the userId from the token and resolve the current user
-    const id = this.auth.userId;
-    this.currentUser = id ? this.users.find((u) => u.id === id) ?? null : null;
+      // get the userId from the token and resolve the current user
+      const id = this.auth.userId;
+      this.currentUser = id ? this.users.find((u) => u.id === id) ?? null : null;
+    } catch (error) {
+      const httpError = error as any;
+      const message =
+        httpError?.error?.userMessage ||
+        this.translator.translate(httpError?.error?.internalCode);
+      this.ui.toast(message, 'danger');
+    }
   }
 
   filteredUsers(): User[] {
@@ -108,15 +118,20 @@ export class UsersPage implements OnInit {
     const ok = await this.confirmModal.open('Deseja excluir este usuário?');
     if (!ok) return;
     try {
-      await this.userService.delete(user.id);
-      this.ui.toast('Usuário excluído', 'success');
+      const res = await this.userService.delete(user.id);
+      const msg = res?.message;
+      this.ui.toast(msg || 'Usuário excluído', 'success');
       if (user.id === this.auth.userId) {
         this.logout();
       } else {
         this.load();
       }
-    } catch {
-      // handled globally
+    } catch (error) {
+      const httpError = error as any;
+      const message =
+        httpError?.error?.userMessage ||
+        this.translator.translate(httpError?.error?.internalCode);
+      this.ui.toast(message, 'danger');
     }
   }
 

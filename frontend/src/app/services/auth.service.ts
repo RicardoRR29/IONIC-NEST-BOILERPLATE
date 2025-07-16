@@ -13,17 +13,30 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  async login(email: string, password: string): Promise<void> {
+  async login(email: string, password: string): Promise<string | undefined> {
     const res = await firstValueFrom(
-      this.http.post<LoginResponse>(`${this.base}/auth/login`, { email, password })
+      this.http.post<LoginResponse & { message?: string }>(
+        `${this.base}/auth/login`,
+        { email, password }
+      )
     );
     localStorage.setItem('token', res.access_token);
+    return (res as any).message;
   }
 
-  async register(name: string, email: string, password: string): Promise<void> {
-    await firstValueFrom(
-      this.http.post(`${this.base}/auth/register`, { name, email, password })
+  async register(
+    name: string,
+    email: string,
+    password: string
+  ): Promise<string | undefined> {
+    const res = await firstValueFrom(
+      this.http.post<{ message?: string }>(`${this.base}/auth/register`, {
+        name,
+        email,
+        password,
+      })
     );
+    return (res as any).message;
   }
 
   async logout(): Promise<void> {

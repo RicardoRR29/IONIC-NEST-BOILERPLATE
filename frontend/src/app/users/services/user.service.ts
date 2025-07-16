@@ -23,19 +23,36 @@ export class UserService {
     return firstValueFrom(this.http.get<User>(`${this.base}/users/${id}`));
   }
 
-  create(name: string, email: string, password: string): Promise<User> {
+  create(
+    name: string,
+    email: string,
+    password: string,
+  ): Promise<User & { message?: string }> {
     return firstValueFrom(
-      this.http.post<User>(`${this.base}/users`, { name, email, password }),
+      this.http.post<User & { message?: string }>(`${this.base}/users`, {
+        name,
+        email,
+        password,
+      }),
     );
   }
 
-  update(id: number, name: string, email: string): Promise<User> {
+  update(
+    id: number,
+    name: string,
+    email: string,
+  ): Promise<User & { message?: string }> {
     return firstValueFrom(
-      this.http.put<User>(`${this.base}/users/${id}`, { name, email }),
+      this.http.put<User & { message?: string }>(`${this.base}/users/${id}`, {
+        name,
+        email,
+      }),
     );
   }
 
-  async delete(id: number): Promise<void> {
-    await firstValueFrom(this.http.delete(`${this.base}/users/${id}`));
+  delete(id: number): Promise<{ message?: string }> {
+    return firstValueFrom(
+      this.http.delete<{ message?: string }>(`${this.base}/users/${id}`),
+    );
   }
 }
